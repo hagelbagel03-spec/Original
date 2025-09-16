@@ -9095,6 +9095,33 @@ export default function App() {
 const AppContent = () => {
   const { user, loading } = useAuth();
   const { colors } = useTheme();
+  
+  // App Configuration States
+  const [appConfig, setAppConfig] = useState({
+    app_name: 'Stadtwache',
+    app_subtitle: 'Polizei Management System',
+    app_icon: null,
+    organization_name: 'Sicherheitsbehörde Schwelm',
+    primary_color: '#1E40AF',
+    secondary_color: '#3B82F6'
+  });
+
+  const API_URL = "http://212.227.57.238:8001";
+
+  // Load app configuration
+  const loadAppConfig = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/api/app/config`);
+      setAppConfig(response.data);
+      console.log('📱 App configuration loaded:', response.data);
+    } catch (error) {
+      console.error('❌ Failed to load app configuration:', error);
+    }
+  };
+
+  useEffect(() => {
+    loadAppConfig();
+  }, []);
 
   const dynamicStyles = StyleSheet.create({
     loadingContainer: {
