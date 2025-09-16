@@ -7988,7 +7988,7 @@ Beispielinhalt:
             </KeyboardAvoidingView>
             </View>
           </ScrollView>
-        </View>
+        </SafeAreaView>
       </Modal>
 
       {/* Add User Modal */}
