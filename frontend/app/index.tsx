@@ -3705,6 +3705,13 @@ const MainApp = () => {
       color: colors.textMuted,
       fontWeight: '500',
     },
+    // Profile Photo Preview Style
+    profilePhotoPreview: {
+      width: 120,
+      height: 120,
+      borderRadius: 60,
+      resizeMode: 'cover',
+    },
     incidentDetailPhoto: {
       width: 200,
       height: 120,
