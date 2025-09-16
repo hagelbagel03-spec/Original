@@ -895,7 +895,7 @@ async def get_person_stats(current_user: User = Depends(get_current_user)):
 async def create_incident(incident_data: IncidentCreate, current_user: User = Depends(get_current_user)):
     """Create a new incident with geocoding support"""
     incident_dict = incident_data.dict()
-    incident_dict["id"] = str(ObjectId())
+    incident_dict["id"] = str(uuid.uuid4())
     incident_dict["created_at"] = datetime.utcnow()
     incident_dict["updated_at"] = datetime.utcnow()
     incident_dict["status"] = "open"
