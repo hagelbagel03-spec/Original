@@ -5195,6 +5195,20 @@ const MainApp = () => {
             </View>
           </View>
           <View style={dynamicStyles.headerButtons}>
+            {/* Theme Toggle Button */}
+            <TouchableOpacity 
+              style={[dynamicStyles.headerButton, dynamicStyles.themeToggleButton]} 
+              onPress={toggleTheme}
+              accessible={true}
+              accessibilityLabel={isDarkMode ? "Hell-Modus aktivieren" : "Dunkel-Modus aktivieren"}
+            >
+              <Ionicons 
+                name={isDarkMode ? "sunny" : "moon"} 
+                size={20} 
+                color={colors.accent} 
+              />
+            </TouchableOpacity>
+            
             <TouchableOpacity style={dynamicStyles.headerButton} onPress={logout}>
               <Ionicons name="log-out-outline" size={20} color="#FFFFFF" />
             </TouchableOpacity>
