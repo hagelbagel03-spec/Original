@@ -5798,17 +5798,36 @@ const MainApp = () => {
         ) : (
           <>
             {(() => {
-              // Filter persons based on search query
-              const filteredPersons = searchQuery.trim() 
-                ? persons.filter(person => {
-                    const fullName = `${person.first_name} ${person.last_name}`.toLowerCase();
-                    const query = searchQuery.toLowerCase().trim();
-                    return fullName.includes(query) || 
-                           person.first_name.toLowerCase().includes(query) ||
-                           person.last_name.toLowerCase().includes(query) ||
-                           (person.case_number && person.case_number.toLowerCase().includes(query));
-                  })
-                : persons;
+              // Filter persons based on category and search query
+              let filteredPersons = persons;
+              
+              // First filter by category
+              if (personFilter !== 'all') {
+                filteredPersons = filteredPersons.filter(person => {
+                  switch (personFilter) {
+                    case 'vermisst':
+                      return person.status === 'vermisst';
+                    case 'gesucht':
+                      return person.status === 'gesucht';
+                    case 'gefunden':
+                      return person.status === 'gefunden';
+                    default:
+                      return true;
+                  }
+                });
+              }
+              
+              // Then filter by search query
+              if (searchQuery.trim()) {
+                filteredPersons = filteredPersons.filter(person => {
+                  const fullName = `${person.first_name} ${person.last_name}`.toLowerCase();
+                  const query = searchQuery.toLowerCase().trim();
+                  return fullName.includes(query) || 
+                         person.first_name.toLowerCase().includes(query) ||
+                         person.last_name.toLowerCase().includes(query) ||
+                         (person.case_number && person.case_number.toLowerCase().includes(query));
+                });
+              }
 
               return filteredPersons.length === 0 ? (
                 <View style={dynamicStyles.emptyState}>
