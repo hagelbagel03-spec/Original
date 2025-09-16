@@ -1160,7 +1160,8 @@ const MainApp = ({ appConfig, setAppConfig }) => {
           phone: response.data.phone || '',
           service_number: response.data.service_number || '',
           rank: response.data.rank || '',
-          department: response.data.department || ''
+          department: response.data.department || '',
+          photo: response.data.photo || ''
         });
         Alert.alert('✅ Erfolg', 'Profil wurde erfolgreich aktualisiert!');
       }
