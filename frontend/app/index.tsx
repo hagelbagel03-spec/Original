@@ -5557,8 +5557,8 @@ const MainApp = ({ appConfig, setAppConfig }) => {
       <View style={dynamicStyles.homeHeader}>
         <View style={dynamicStyles.headerContent}>
           <View style={dynamicStyles.headerLeft}>
-            <Text style={dynamicStyles.welcomeText}>Willkommen zurück,</Text>
-            <Text style={dynamicStyles.userName}>{user?.username}</Text>
+            <Text style={dynamicStyles.welcomeText}>{appConfig.app_name}</Text>
+            <Text style={dynamicStyles.userName}>{appConfig.app_subtitle}</Text>
             <View style={dynamicStyles.statusBadge}>
               <View style={[dynamicStyles.statusDot, { backgroundColor: getStatusColor(userStatus) }]} />
               <Text style={dynamicStyles.userRole}>
