@@ -3252,6 +3252,62 @@ const MainApp = ({ appConfig, setAppConfig }) => {
       fontSize: 12,
       fontWeight: 'bold',
     },
+    teamMemberCard: {
+      backgroundColor: colors.card,
+      borderRadius: 12,
+      padding: 16,
+      marginBottom: 8,
+      borderWidth: 1,
+      borderColor: colors.border,
+    },
+    memberInfo: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 12,
+    },
+    memberPhotoContainer: {
+      width: 40,
+      height: 40,
+      borderRadius: 20,
+      backgroundColor: colors.surface,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    memberPhoto: {
+      width: 40,
+      height: 40,
+      borderRadius: 20,
+    },
+    memberPhotoPlaceholder: {
+      width: 40,
+      height: 40,
+      borderRadius: 20,
+      backgroundColor: colors.surface,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    memberDetails: {
+      flex: 1,
+    },
+    memberName: {
+      fontSize: 16,
+      fontWeight: 'bold',
+      color: colors.text,
+      marginBottom: 2,
+    },
+    memberRank: {
+      fontSize: 14,
+      color: colors.textSecondary,
+    },
+    statusIndicator: {
+      alignItems: 'center',
+      gap: 4,
+    },
+    statusText: {
+      fontSize: 12,
+      color: colors.textSecondary,
+      textAlign: 'center',
+    },
     // Mobile-Responsive Filter Tabs
     filterScrollContainer: {
       marginBottom: 16,
