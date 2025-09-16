@@ -7737,7 +7737,7 @@ const MainApp = ({ appConfig, setAppConfig }) => {
         </TouchableOpacity>
         
         {/* Team Button - nur für Team-Mitglieder */}
-        {user?.team && (
+        {(user?.team || user?.department) && (
           <TouchableOpacity 
             style={[dynamicStyles.tabItem, activeTab === 'myteam' && dynamicStyles.tabItemActive]}
             onPress={() => setActiveTab('myteam')}
@@ -7748,7 +7748,7 @@ const MainApp = ({ appConfig, setAppConfig }) => {
               color={activeTab === 'myteam' ? '#FFFFFF' : colors.textMuted} 
             />
             <Text style={[dynamicStyles.tabLabel, activeTab === 'myteam' && dynamicStyles.tabLabelActive]}>
-              {user.team}
+              {user.team || user.department}
             </Text>
           </TouchableOpacity>
         )}
