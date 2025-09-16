@@ -1745,6 +1745,81 @@ const MainApp = () => {
     }
   };
 
+  // Admin Settings Functions
+  const saveAdminSettings = async () => {
+    try {
+      const config = token ? {
+        headers: { Authorization: `Bearer ${token}` }
+      } : {};
+      
+      console.log('⚙️ Saving admin settings:', adminSettingsData);
+      
+      // Filter out empty values
+      const updateData = Object.fromEntries(
+        Object.entries(adminSettingsData).filter(([key, value]) => value !== '')
+      );
+      
+      const response = await axios.put(`${API_URL}/api/admin/app/config`, updateData, config);
+      
+      // Update local app config
+      setAppConfig(response.data);
+      
+      // Reset form
+      setAdminSettingsData({
+        app_name: '',
+        app_subtitle: '',
+        app_icon: '',
+        organization_name: '',
+        primary_color: '',
+        secondary_color: ''
+      });
+      
+      window.alert('✅ Erfolg\n\nApp-Einstellungen wurden erfolgreich gespeichert!');
+      setShowAdminSettingsModal(false);
+      
+    } catch (error) {
+      console.error('❌ Admin settings save error:', error);
+      let errorMsg = 'Einstellungen konnten nicht gespeichert werden.';
+      if (error.response?.status === 403) {
+        errorMsg = 'Keine Berechtigung. Nur Administratoren können App-Einstellungen ändern.';
+      } else if (error.response?.data?.detail) {
+        errorMsg = error.response.data.detail;
+      }
+      window.alert(`❌ Fehler\n\n${errorMsg}`);
+    }
+  };
+
+  const pickIconForApp = async () => {
+    try {
+      const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      
+      if (permissionResult.granted === false) {
+        Alert.alert('📸 Berechtigung erforderlich', 'Berechtigung für Galerie-Zugriff erforderlich');
+        return;
+      }
+
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 0.8,
+        base64: true,
+      });
+
+      if (!result.canceled && result.assets[0].base64) {
+        const base64Image = `data:image/jpeg;base64,${result.assets[0].base64}`;
+        setAdminSettingsData({
+          ...adminSettingsData,
+          app_icon: base64Image
+        });
+        console.log('📱 App icon selected');
+      }
+    } catch (error) {
+      console.error('❌ App icon picker error:', error);
+      Alert.alert('❌ Fehler', 'Fehler beim Auswählen des App-Icons');
+    }
+  };
+
   // Report Status Update Functions - FIXED for 422 error
   const updateReportStatus = async (reportId, newStatus, reportTitle) => {
     try {
