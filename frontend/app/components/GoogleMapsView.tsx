@@ -83,16 +83,36 @@ const styles = StyleSheet.create({
   mapContainer: {
     minHeight: 200,
   },
-  mapPlaceholder: {
+  mapView: {
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 24,
-    backgroundColor: '#f8f9fa',
-    borderWidth: 2,
-    borderStyle: 'dashed',
-    borderColor: '#e9ecef',
+    padding: 20,
+    backgroundColor: '#2196F3',
     margin: 16,
     borderRadius: 12,
+    minHeight: 150,
+  },
+  mapTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#ffffff',
+    marginTop: 8,
+    textAlign: 'center',
+  },
+  mapSubtitle: {
+    fontSize: 14,
+    color: '#ffffff',
+    marginTop: 4,
+    textAlign: 'center',
+    opacity: 0.9,
+  },
+  mapCoordinates: {
+    fontSize: 12,
+    color: '#ffffff',
+    marginTop: 8,
+    fontFamily: 'monospace',
+    textAlign: 'center',
+    opacity: 0.8,
   },
   incidentTitle: {
     fontSize: 16,
