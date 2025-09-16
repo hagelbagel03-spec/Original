@@ -5817,34 +5817,6 @@ const MainApp = ({ appConfig, setAppConfig }) => {
       </View>
 
       {/* Admin Quick Actions - NUR FÜR ADMINS */}
-      {user?.role === 'admin' && (
-        <View style={dynamicStyles.card}>
-          <View style={dynamicStyles.cardHeader}>
-            <Ionicons name="shield-checkmark" size={24} color={colors.primary} />
-            <Text style={dynamicStyles.cardTitle}>Admin Bereich</Text>
-          </View>
-          <TouchableOpacity 
-            style={dynamicStyles.actionButton}
-            onPress={() => setShowAddUserModal(true)}
-            accessible={true}
-            accessibilityLabel="Neuen Benutzer hinzufügen"
-          >
-            <Ionicons name="person-add" size={20} color="#FFFFFF" />
-            <Text style={dynamicStyles.actionText}>Neuen Benutzer hinzufügen</Text>
-          </TouchableOpacity>
-          
-          <TouchableOpacity 
-            style={[dynamicStyles.actionButton, { backgroundColor: colors.accent }]}
-            onPress={() => setShowAdminSettingsModal(true)}
-            accessible={true}
-            accessibilityLabel="Admin Einstellungen öffnen"
-          >
-            <Ionicons name="settings" size={20} color="#FFFFFF" />
-            <Text style={dynamicStyles.actionText}>App-Einstellungen</Text>
-          </TouchableOpacity>
-        </View>
-      )}
-
       {/* Aktuelle Vorfälle */}
       <View style={dynamicStyles.card}>
         <TouchableOpacity 
