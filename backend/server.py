@@ -681,7 +681,7 @@ async def complete_incident(incident_id: str, current_user: User = Depends(get_c
     if not incident:
         raise HTTPException(status_code=404, detail="Incident not found")
     
-    # Create archive report
+    # Create archive report with images
     archive_report = {
         "id": str(uuid.uuid4()),
         "title": f"Archiv: {incident['title']}",
@@ -691,6 +691,7 @@ async def complete_incident(incident_id: str, current_user: User = Depends(get_c
         "shift_date": datetime.utcnow().strftime('%Y-%m-%d'),
         "status": "archived",
         "incident_id": incident_id,
+        "images": incident.get('images', []),  # Transfer images from incident to report
         "created_at": datetime.utcnow(),
         "updated_at": datetime.utcnow()
     }
