@@ -6249,6 +6249,60 @@ const MainApp = () => {
                 </View>
               </View>
 
+              {/* Optional Photo Upload Section */}
+              <View style={dynamicStyles.formGroup}>
+                <Text style={dynamicStyles.formLabel}>📸 Foto (optional)</Text>
+                <Text style={dynamicStyles.formHint}>Fügen Sie ein Bild hinzu, um den Vorfall zu dokumentieren</Text>
+                <View style={dynamicStyles.photoUploadContainer}>
+                  {incidentFormData.photo ? (
+                    <TouchableOpacity 
+                      style={dynamicStyles.photoPreview}
+                      onPress={() => {
+                        Alert.alert(
+                          '📸 Foto ändern',
+                          'Möchten Sie das Foto ändern oder entfernen?',
+                          [
+                            { text: 'Abbrechen', style: 'cancel' },
+                            { 
+                              text: 'Entfernen', 
+                              style: 'destructive',
+                              onPress: () => setIncidentFormData(prev => ({ ...prev, photo: '' }))
+                            },
+                            { text: 'Neues Foto', onPress: pickImageForIncident }
+                          ]
+                        );
+                      }}
+                    >
+                      <Image 
+                        source={{ uri: incidentFormData.photo }} 
+                        style={dynamicStyles.incidentPhotoPreview}
+                      />
+                      <View style={dynamicStyles.photoOverlay}>
+                        <Ionicons name="camera" size={20} color="#FFFFFF" />
+                      </View>
+                    </TouchableOpacity>
+                  ) : (
+                    <View style={dynamicStyles.photoUploadButtons}>
+                      <TouchableOpacity 
+                        style={[dynamicStyles.photoButton, { backgroundColor: colors.primary }]}
+                        onPress={pickImageForIncident}
+                      >
+                        <Ionicons name="images" size={20} color="#FFFFFF" />
+                        <Text style={dynamicStyles.photoButtonText}>Galerie</Text>
+                      </TouchableOpacity>
+                      
+                      <TouchableOpacity 
+                        style={[dynamicStyles.photoButton, { backgroundColor: colors.secondary }]}
+                        onPress={takePhotoForIncident}
+                      >
+                        <Ionicons name="camera" size={20} color="#FFFFFF" />
+                        <Text style={dynamicStyles.photoButtonText}>Kamera</Text>
+                      </TouchableOpacity>
+                    </View>
+                  )}
+                </View>
+              </View>
+
               <TouchableOpacity 
                 style={[dynamicStyles.submitButton, submittingIncident && dynamicStyles.submitButtonDisabled]}
                 onPress={submitIncident}
