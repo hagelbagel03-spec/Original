@@ -3586,6 +3586,14 @@ const MainApp = () => {
       alignItems: 'center',
       justifyContent: 'center',
     },
+    incidentDetailPhoto: {
+      width: 200,
+      height: 120,
+      borderRadius: 8,
+      resizeMode: 'cover',
+      borderWidth: 1,
+      borderColor: colors.border,
+    },
     locationInput: {
       flexDirection: 'row',
       alignItems: 'center',
