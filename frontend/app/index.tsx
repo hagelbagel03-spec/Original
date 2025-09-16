@@ -1766,7 +1766,7 @@ const MainApp = () => {
           lng: 7.3372
         },
         address: incidentFormData.location.trim(),
-        images: []
+        images: incidentFormData.photo ? [incidentFormData.photo] : []
       };
 
       console.log('📤 Submitting incident:', incidentData);
