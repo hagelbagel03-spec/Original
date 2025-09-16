@@ -1464,6 +1464,62 @@ const MainApp = () => {
     }
   };
 
+  // Update Incident Status Function
+  const updateIncidentStatus = async (incidentId, newStatus, incidentTitle) => {
+    try {
+      const config = token ? {
+        headers: { Authorization: `Bearer ${token}` }
+      } : {};
+      
+      console.log(`🔄 Update Incident Status: ${incidentId} -> ${newStatus}`);
+      
+      const updateData = {
+        status: newStatus
+      };
+      
+      console.log('🔄 Sending update data:', updateData);
+      
+      await axios.put(`${API_URL}/api/incidents/${incidentId}`, updateData, config);
+      
+      const statusText = {
+        'in_progress': 'IN BEARBEITUNG',
+        'completed': 'ABGESCHLOSSEN', 
+        'open': 'OFFEN'
+      }[newStatus] || newStatus.toUpperCase();
+      
+      window.alert(`✅ Erfolg\n\nVorfall "${incidentTitle}" wurde auf "${statusText}" gesetzt!`);
+      
+      // Reload incidents
+      await loadAllIncidents();
+      await loadData();
+      
+      // Update selected incident if it's currently shown
+      if (selectedIncident && selectedIncident.id === incidentId) {
+        setSelectedIncident(prev => ({
+          ...prev,
+          status: newStatus
+        }));
+      }
+      
+    } catch (error) {
+      console.error('❌ Incident status update error:', error);
+      console.error('❌ Response data:', error.response?.data);
+      
+      let errorMsg = 'Status konnte nicht aktualisiert werden.';
+      if (error.response?.status === 422) {
+        errorMsg = 'Ungültige Daten. ' + (error.response?.data?.detail || 'Bitte versuchen Sie es erneut.');
+      } else if (error.response?.status === 404) {
+        errorMsg = 'Vorfall nicht gefunden.';
+      } else if (error.response?.data?.detail) {
+        errorMsg = error.response.data.detail;
+      } else if (error.response?.data?.message) {
+        errorMsg = error.response.data.message;
+      }
+      
+      window.alert(`❌ Fehler\n\n${errorMsg}`);
+    }
+  };
+
   // Report Status Update Functions - FIXED for 422 error
   const updateReportStatus = async (reportId, newStatus, reportTitle) => {
     try {
