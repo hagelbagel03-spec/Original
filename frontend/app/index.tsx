@@ -3252,6 +3252,47 @@ const MainApp = ({ appConfig, setAppConfig }) => {
       fontSize: 12,
       fontWeight: 'bold',
     },
+    // Mobile-Responsive Filter Tabs
+    filterScrollContainer: {
+      marginBottom: 16,
+    },
+    filterScrollContent: {
+      paddingHorizontal: 4,
+    },
+    mobileFilterTab: {
+      paddingHorizontal: 12,
+      paddingVertical: 8,
+      marginHorizontal: 4,
+      borderRadius: 16,
+      backgroundColor: colors.surface,
+      borderWidth: 1,
+      borderColor: colors.border,
+      alignItems: 'center',
+      minWidth: 80,
+    },
+    mobileFilterTabActive: {
+      backgroundColor: colors.primary,
+      borderColor: colors.primary,
+    },
+    mobileFilterTabText: {
+      fontSize: 12,
+      fontWeight: '600',
+      color: colors.textSecondary,
+      textAlign: 'center',
+      marginBottom: 2,
+    },
+    mobileFilterTabTextActive: {
+      color: '#FFFFFF',
+    },
+    mobileFilterTabCount: {
+      fontSize: 16,
+      fontWeight: '700',
+      color: colors.primary,
+      textAlign: 'center',
+    },
+    mobileFilterTabCountActive: {
+      color: '#FFFFFF',
+    },
 
     // Modern Stats
     statsContainer: {
