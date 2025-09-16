@@ -130,6 +130,7 @@ class Incident(BaseModel):
     reported_by: str  # user_id
     assigned_to: Optional[str] = None
     assigned_to_name: Optional[str] = None
+    assigned_at: Optional[datetime] = None
     images: List[str] = []  # base64 encoded images
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
