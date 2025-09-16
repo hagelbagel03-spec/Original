@@ -7957,7 +7957,7 @@ Beispielinhalt:
                           ]);
                         }}>
                           <Image 
-                            source={{ uri: selectedReport.photo }} 
+                            source={{ uri: selectedReport.images[0] }} 
                             style={dynamicStyles.reportPhoto}
                           />
                         </TouchableOpacity>
