@@ -678,6 +678,72 @@ const MainApp = ({ appConfig, setAppConfig }) => {
   const [showAddUserModal, setShowAddUserModal] = useState(false);
   const [showAdminSettingsModal, setShowAdminSettingsModal] = useState(false);
   const [showSOSModal, setShowSOSModal] = useState(false);
+
+  // SOS Alarm Function - Send real notification with GPS to all team members
+  const sendSOSAlarm = async () => {
+    try {
+      console.log('🚨 SOS-Alarm wird gesendet...');
+      
+      // Vibration/Sound Alarm
+      if (Platform.OS !== 'web') {
+        const { Haptics } = require('expo-haptics');
+        if (Haptics) {
+          await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+          setTimeout(() => Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error), 500);
+          setTimeout(() => Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error), 1000);
+        }
+      }
+
+      // Get GPS location
+      let locationData = null;
+      try {
+        const { Location } = require('expo-location');
+        const { status } = await Location.requestForegroundPermissionsAsync();
+        if (status === 'granted') {
+          const location = await Location.getCurrentPositionAsync({});
+          locationData = {
+            latitude: location.coords.latitude,
+            longitude: location.coords.longitude,
+            accuracy: location.coords.accuracy
+          };
+          console.log('📍 GPS-Standort ermittelt:', locationData);
+        }
+      } catch (error) {
+        console.log('⚠️ GPS-Standort konnte nicht ermittelt werden:', error);
+      }
+
+      // Send emergency broadcast to all team members
+      const config = token ? { headers: { Authorization: `Bearer ${token}` } } : {};
+      
+      const emergencyData = {
+        type: 'sos_alarm',
+        message: `🚨 NOTFALL-ALARM von ${user?.username}`,
+        sender_id: user?.id,
+        sender_name: user?.username,
+        location: locationData,
+        timestamp: new Date().toISOString(),
+        priority: 'critical'
+      };
+
+      await axios.post(`${BACKEND_BASE_URL}/api/emergency/broadcast`, emergencyData, config);
+      
+      setShowSOSModal(false);
+      
+      const locationMsg = locationData 
+        ? `\n📍 Standort: ${locationData.latitude.toFixed(6)}, ${locationData.longitude.toFixed(6)}`
+        : '\n📍 Standort: Nicht verfügbar';
+      
+      Alert.alert(
+        '🚨 SOS-ALARM GESENDET!', 
+        `Alle Team-Mitglieder wurden alarmiert!${locationMsg}`,
+        [{ text: 'OK', style: 'default' }]
+      );
+      
+    } catch (error) {
+      console.error('❌ SOS-Alarm Fehler:', error);
+      Alert.alert('❌ Fehler', 'SOS-Alarm konnte nicht gesendet werden');
+    }
+  };
   
   // Profile states
   const [userStatus, setUserStatus] = useState(user?.status || 'Im Dienst');
