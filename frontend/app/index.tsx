@@ -5686,13 +5686,82 @@ const MainApp = () => {
         </View>
       </View>
 
+      {/* Category Filter Tabs */}
+      <View style={dynamicStyles.categoryTabs}>
+        <ScrollView 
+          horizontal 
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={dynamicStyles.categoryTabsContent}
+        >
+          <TouchableOpacity 
+            style={[
+              dynamicStyles.categoryTab,
+              personFilter === 'all' && dynamicStyles.categoryTabActive
+            ]}
+            onPress={() => setPersonFilter('all')}
+          >
+            <Text style={[
+              dynamicStyles.categoryTabText,
+              personFilter === 'all' && dynamicStyles.categoryTabTextActive
+            ]}>
+              🌟 Alle ({personStats.total_persons})
+            </Text>
+          </TouchableOpacity>
+          
+          <TouchableOpacity 
+            style={[
+              dynamicStyles.categoryTab,
+              personFilter === 'vermisst' && dynamicStyles.categoryTabActive
+            ]}
+            onPress={() => setPersonFilter('vermisst')}
+          >
+            <Text style={[
+              dynamicStyles.categoryTabText,
+              personFilter === 'vermisst' && dynamicStyles.categoryTabTextActive
+            ]}>
+              ⚠️ Vermisste ({personStats.missing_persons})
+            </Text>
+          </TouchableOpacity>
+          
+          <TouchableOpacity 
+            style={[
+              dynamicStyles.categoryTab,
+              personFilter === 'gesucht' && dynamicStyles.categoryTabActive
+            ]}
+            onPress={() => setPersonFilter('gesucht')}
+          >
+            <Text style={[
+              dynamicStyles.categoryTabText,
+              personFilter === 'gesucht' && dynamicStyles.categoryTabTextActive
+            ]}>
+              🔍 Gesuchte ({personStats.wanted_persons})
+            </Text>
+          </TouchableOpacity>
+          
+          <TouchableOpacity 
+            style={[
+              dynamicStyles.categoryTab,
+              personFilter === 'gefunden' && dynamicStyles.categoryTabActive
+            ]}
+            onPress={() => setPersonFilter('gefunden')}
+          >
+            <Text style={[
+              dynamicStyles.categoryTabText,
+              personFilter === 'gefunden' && dynamicStyles.categoryTabTextActive
+            ]}>
+              ✅ Gefundene ({personStats.found_persons})
+            </Text>
+          </TouchableOpacity>
+        </ScrollView>
+      </View>
+
       {/* Search Field */}
       <View style={dynamicStyles.searchContainer}>
         <View style={dynamicStyles.searchInputContainer}>
           <Ionicons name="search" size={20} color={colors.textMuted} style={dynamicStyles.searchIcon} />
           <TextInput
             style={dynamicStyles.searchInput}
-            placeholder="Nach Name suchen..."
+            placeholder="Person suchen..."
             placeholderTextColor={colors.textMuted}
             value={searchQuery}
             onChangeText={setSearchQuery}
