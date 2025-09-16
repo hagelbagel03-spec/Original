@@ -74,36 +74,40 @@ const ThemeProvider = ({ children }) => {
     toggleTheme,
     colors: isDarkMode ? {
       // Dark Theme
-      primary: '#3B82F6',
-      primaryDark: '#1E40AF',
-      secondary: '#10B981',
-      background: '#111827',
-      surface: '#1F2937',
-      card: '#374151',
-      text: '#F9FAFB',
-      textSecondary: '#D1D5DB',
-      textMuted: '#9CA3AF',
-      border: '#4B5563',
-      error: '#EF4444',
-      warning: '#F59E0B',
-      success: '#10B981',
-      shadow: 'rgba(0, 0, 0, 0.5)',
+      primary: '#3B82F6',          // Professional Blue
+      secondary: '#60A5FA',        // Lighter Blue
+      accent: '#22D3EE',           // Cyan accent
+      success: '#10B981',          // Professional Green
+      warning: '#F59E0B',          // Professional Orange
+      error: '#EF4444',            // Professional Red
+      background: '#0F172A',       // Dark Navy
+      surface: '#1E293B',          // Dark Surface
+      card: '#334155',             // Card Background
+      elevated: '#475569',         // Elevated surfaces
+      text: '#F8FAFC',             // Light text
+      textSecondary: '#CBD5E1',    // Medium text
+      textMuted: '#94A3B8',        // Muted text
+      border: '#475569',           // Dark border
+      shadow: 'rgba(0, 0, 0, 0.4)',
+      overlay: 'rgba(0, 0, 0, 0.6)',
     } : {
       // Light Theme
-      primary: '#1E3A8A',
-      primaryDark: '#1E40AF',
-      secondary: '#059669',
-      background: '#F3F4F6',
-      surface: '#FFFFFF',
-      card: '#FFFFFF',
-      text: '#111827',
-      textSecondary: '#374151',
-      textMuted: '#6B7280',
-      border: '#E5E7EB',
-      error: '#EF4444',
-      warning: '#F59E0B',
-      success: '#10B981',
-      shadow: 'rgba(0, 0, 0, 0.1)',
+      primary: '#1E40AF',          // Professional Blue
+      secondary: '#3B82F6',        // Lighter Blue
+      accent: '#06B6D4',           // Cyan accent
+      success: '#059669',          // Professional Green
+      warning: '#D97706',          // Professional Orange
+      error: '#DC2626',            // Professional Red
+      background: '#F8FAFC',       // Soft White
+      surface: '#FFFFFF',          // Pure White
+      card: '#FFFFFF',             // Card Background
+      elevated: '#F1F5F9',         // Elevated surfaces
+      text: '#0F172A',             // Dark text
+      textSecondary: '#334155',    // Medium text
+      textMuted: '#64748B',        // Light text
+      border: '#E2E8F0',           // Light border
+      shadow: 'rgba(15, 23, 42, 0.08)',
+      overlay: 'rgba(15, 23, 42, 0.4)',
     }
   };
 
