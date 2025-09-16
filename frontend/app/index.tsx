@@ -772,6 +772,7 @@ const MainApp = () => {
   const [editingPerson, setEditingPerson] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [personFilter, setPersonFilter] = useState('all');
+  const [personFilter, setPersonFilter] = useState('all');
   const [personFormData, setPersonFormData] = useState({
     first_name: '',
     last_name: '',
