@@ -5944,6 +5944,21 @@ const MainApp = () => {
               ✅ Gefundene ({personStats.found_persons})
             </Text>
           </TouchableOpacity>
+          
+          <TouchableOpacity 
+            style={[
+              dynamicStyles.categoryTab,
+              personFilter === 'erledigt' && dynamicStyles.categoryTabActive
+            ]}
+            onPress={() => setPersonFilter('erledigt')}
+          >
+            <Text style={[
+              dynamicStyles.categoryTabText,
+              personFilter === 'erledigt' && dynamicStyles.categoryTabTextActive
+            ]}>
+              ✅ Erledigt ({personStats.completed_persons || 0})
+            </Text>
+          </TouchableOpacity>
         </ScrollView>
       </View>
 
