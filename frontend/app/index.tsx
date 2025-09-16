@@ -1006,6 +1006,17 @@ const MainApp = () => {
     }
   }, [showIncidentsScreen]);
 
+  // Load app configuration
+  const loadAppConfig = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/api/app/config`);
+      setAppConfig(response.data);
+      console.log('📱 App configuration loaded:', response.data);
+    } catch (error) {
+      console.error('❌ Failed to load app configuration:', error);
+    }
+  };
+
   const loadData = async () => {
     setLoading(true);
     try {
