@@ -1447,6 +1447,8 @@ const MainApp = () => {
         setSelectedIncident(prev => ({
           ...prev,
           assigned_to: user?.id,
+          assigned_to_name: user?.username,
+          assigned_at: new Date().toISOString(),
           status: 'in_progress'
         }));
       }
