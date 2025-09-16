@@ -55,45 +55,58 @@ const GoogleMapsView = ({ incident }: { incident: any }) => {
     );
   }
 
+  const openInGoogleMaps = () => {
+    const url = `https://www.google.com/maps?q=${coordinates.lat},${coordinates.lng}`;
+    if (Platform.OS === 'web') {
+      // @ts-ignore
+      window.open(url, '_blank');
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <MapView
-        style={styles.map}
-        provider={Platform.OS === 'android' ? PROVIDER_GOOGLE : undefined}
-        initialRegion={{
-          latitude: coordinates.lat,
-          longitude: coordinates.lng,
-          latitudeDelta: 0.01,
-          longitudeDelta: 0.01,
-        }}
-        showsUserLocation={true}
-        showsMyLocationButton={true}
-        toolbarEnabled={true}
-        zoomEnabled={true}
-        scrollEnabled={true}
-      >
-        <Marker
-          coordinate={{
-            latitude: coordinates.lat,
-            longitude: coordinates.lng,
-          }}
-          title={incident.title}
-          description={incident.address}
-          pinColor={getPriorityColor(incident.priority)}
+      {/* Interactive Google Maps für Web */}
+      {Platform.OS === 'web' ? (
+        <iframe
+          src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyDummy_Key_For_Development&q=${coordinates.lat},${coordinates.lng}&zoom=16`}
+          width="100%"
+          height="100%"
+          style={{ border: 0, borderRadius: 12 }}
+          allowFullScreen
+          loading="lazy"
         />
-      </MapView>
-      
-      {/* Info Overlay */}
-      <View style={styles.infoOverlay}>
-        <View style={[styles.priorityBadge, {
-          backgroundColor: getPriorityColor(incident.priority)
-        }]}>
-          <Text style={styles.priorityText}>
-            {incident.priority?.toUpperCase() || 'NORMAL'} PRIORITÄT
+      ) : (
+        <View style={styles.nativeMapPlaceholder}>
+          <Ionicons name="map" size={48} color={colors.primary} />
+          <Text style={styles.mapTitle}>🗺️ Live Google Maps</Text>
+          <Text style={styles.mapSubtitle}>📍 {incident.address}</Text>
+          <Text style={styles.coordinates}>
+            📍 {coordinates.lat.toFixed(6)}, {coordinates.lng.toFixed(6)}
           </Text>
+          
+          <TouchableOpacity 
+            style={styles.openMapsButton}
+            onPress={openInGoogleMaps}
+          >
+            <Ionicons name="navigate" size={20} color="#FFFFFF" />
+            <Text style={styles.openMapsText}>In Google Maps öffnen</Text>
+          </TouchableOpacity>
         </View>
-        <Text style={styles.addressText}>📍 {incident.address}</Text>
-      </View>
+      )}
+      
+      {/* Info Overlay nur für Web */}
+      {Platform.OS === 'web' && (
+        <View style={styles.infoOverlay}>
+          <View style={[styles.priorityBadge, {
+            backgroundColor: getPriorityColor(incident.priority)
+          }]}>
+            <Text style={styles.priorityText}>
+              {incident.priority?.toUpperCase() || 'NORMAL'} PRIORITÄT
+            </Text>
+          </View>
+          <Text style={styles.addressText}>📍 {incident.address}</Text>
+        </View>
+      )}
     </View>
   );
 };
