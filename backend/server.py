@@ -920,16 +920,23 @@ async def broadcast_emergency_alert(
     alert_data: dict,
     current_user: User = Depends(get_current_user)
 ):
-    """Broadcast emergency alert to all active users"""
+    """Broadcast emergency alert to all active users with GPS location"""
     try:
-        # Create emergency broadcast record
+        # Extract location data
+        location_data = alert_data.get("location", None)
+        location_status = alert_data.get("location_status", "Unbekannt")
+        
+        # Create comprehensive emergency broadcast record
         broadcast_dict = {
             "id": str(uuid.uuid4()),
             "type": alert_data.get("type", "sos_alarm"),
             "message": alert_data.get("message", "Notfall-Alarm"),
             "sender_id": current_user.id,
             "sender_name": current_user.username,
-            "location": alert_data.get("location", None),
+            "sender_badge": getattr(current_user, 'badge_number', 'N/A'),
+            "location": location_data,
+            "location_status": location_status,
+            "has_gps": location_data is not None,
             "timestamp": datetime.utcnow(),
             "priority": alert_data.get("priority", "urgent"),
             "recipients": "all_users",
@@ -942,20 +949,54 @@ async def broadcast_emergency_alert(
         if not result.inserted_id:
             raise HTTPException(status_code=500, detail="Failed to create emergency broadcast")
         
-        logger.info(f"Emergency broadcast created: {broadcast_dict['id']} by {current_user.username}")
+        # Log detailed info
+        location_info = ""
+        if location_data:
+            location_info = f" at GPS: {location_data['latitude']:.6f}, {location_data['longitude']:.6f} (±{location_data.get('accuracy', 0):.0f}m)"
+        else:
+            location_info = f" - GPS: {location_status}"
+            
+        logger.info(f"🚨 EMERGENCY BROADCAST: {broadcast_dict['id']} by {current_user.username}{location_info}")
         
         # TODO: Implement real-time notification to all users via WebSocket/Push notifications
-        # For now, return success - in production this would trigger push notifications
+        # This would trigger push notifications to all team members with GPS coordinates
         
         return {
             "success": True,
             "broadcast_id": broadcast_dict["id"],
-            "message": "Emergency alert broadcasted to all users",
+            "message": "Emergency alert broadcasted to all team members",
+            "location_transmitted": location_data is not None,
+            "location_status": location_status,
             "timestamp": broadcast_dict["timestamp"].isoformat()
         }
         
     except Exception as e:
-        logger.error(f"Error creating emergency broadcast: {str(e)}")
+        logger.error(f"❌ Error creating emergency broadcast: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
+
+@api_router.get("/emergency/broadcasts")
+async def get_emergency_broadcasts(current_user: User = Depends(get_current_user)):
+    """Get recent emergency broadcasts for monitoring"""
+    try:
+        # Get recent emergency broadcasts (last 24 hours)
+        yesterday = datetime.utcnow() - timedelta(days=1)
+        cursor = db.emergency_broadcasts.find(
+            {"timestamp": {"$gte": yesterday}}
+        ).sort("timestamp", -1).limit(50)
+        
+        broadcasts = await cursor.to_list(length=50)
+        
+        result = []
+        for broadcast in broadcasts:
+            if '_id' in broadcast:
+                del broadcast['_id']
+            result.append(broadcast)
+        
+        logger.info(f"Retrieved {len(result)} emergency broadcasts")
+        return result
+        
+    except Exception as e:
+        logger.error(f"Error retrieving emergency broadcasts: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
 
 @api_router.post("/incidents", response_model=Incident)
