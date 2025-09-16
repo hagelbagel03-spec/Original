@@ -1038,7 +1038,7 @@ async def get_live_locations(current_user: User = Depends(get_current_user)):
             base_lng = 7.3372
             
             location = {
-                "id": officer.get("id", str(ObjectId())),
+                "id": officer.get("id", str(uuid.uuid4())),
                 "username": officer.get("username", f"Officer {i+1}"),
                 "status": officer.get("status", "Im Dienst"),
                 "location": {
