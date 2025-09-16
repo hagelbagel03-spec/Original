@@ -9147,5 +9147,5 @@ const AppContent = () => {
     );
   }
 
-  return user ? <MainApp /> : <LoginScreen />;
+  return user ? <MainApp appConfig={appConfig} setAppConfig={setAppConfig} /> : <LoginScreen appConfig={appConfig} />;
 };
