@@ -3680,6 +3680,31 @@ const MainApp = () => {
       borderWidth: 1,
       borderColor: colors.border,
     },
+    // Professional Stats Styles
+    statContent: {
+      padding: 16,
+    },
+    statHeader: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginBottom: 12,
+    },
+    statIconContainer: {
+      width: 40,
+      height: 40,
+      borderRadius: 20,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    statTrend: {
+      opacity: 0.6,
+    },
+    statSubtext: {
+      fontSize: 12,
+      color: colors.textMuted,
+      fontWeight: '500',
+    },
     incidentDetailPhoto: {
       width: 200,
       height: 120,
