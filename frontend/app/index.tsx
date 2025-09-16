@@ -5320,7 +5320,11 @@ const MainApp = () => {
           </View>
         </TouchableOpacity>
         
-        <View style={[dynamicStyles.statCard, { borderLeftColor: colors.success }]}>
+        <TouchableOpacity 
+          style={[dynamicStyles.statCard, { borderLeftColor: colors.success }]}
+          onPress={() => setActiveTab('reports')}
+          activeOpacity={0.7}
+        >
           <View style={dynamicStyles.statContent}>
             <View style={dynamicStyles.statHeader}>
               <View style={[dynamicStyles.statIconContainer, { backgroundColor: colors.success + '15' }]}>
@@ -5334,7 +5338,7 @@ const MainApp = () => {
             <Text style={dynamicStyles.statLabel}>Berichte Heute</Text>
             <Text style={dynamicStyles.statSubtext}>{reports.filter(r => r.status === 'submitted').length} eingereicht</Text>
           </View>
-        </View>
+        </TouchableOpacity>
       </View>
 
       {/* Admin Quick Actions - NUR FÜR ADMINS */}
