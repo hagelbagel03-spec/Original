@@ -6014,6 +6014,7 @@ const MainApp = ({ appConfig, setAppConfig }) => {
                         <Image 
                           source={{ uri: officer.photo }} 
                           style={dynamicStyles.profilePhoto}
+                          onError={(e) => console.log('❌ Image load error:', e.nativeEvent.error)}
                         />
                       ) : (
                         <View style={dynamicStyles.profilePhotoPlaceholder}>
