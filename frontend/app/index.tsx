@@ -20,6 +20,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+import * as Location from 'expo-location';
 // Map functionality disabled for web compatibility
 import AddUserModal from './components/AddUserModal';
 import DiscordMessages from './components/DiscordMessages';
