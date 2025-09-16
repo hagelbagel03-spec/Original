@@ -5300,7 +5300,11 @@ const MainApp = () => {
           </View>
         </TouchableOpacity>
         
-        <View style={[dynamicStyles.statCard, { borderLeftColor: colors.primary }]}>
+        <TouchableOpacity 
+          style={[dynamicStyles.statCard, { borderLeftColor: colors.primary }]}
+          onPress={() => setActiveTab('team')}
+          activeOpacity={0.7}
+        >
           <View style={dynamicStyles.statContent}>
             <View style={dynamicStyles.statHeader}>
               <View style={[dynamicStyles.statIconContainer, { backgroundColor: colors.primary + '15' }]}>
@@ -5314,7 +5318,7 @@ const MainApp = () => {
             <Text style={dynamicStyles.statLabel}>Team Mitglieder</Text>
             <Text style={dynamicStyles.statSubtext}>{Object.values(usersByStatus).flat().filter(u => u.status === 'Im Dienst').length} im Dienst</Text>
           </View>
-        </View>
+        </TouchableOpacity>
         
         <View style={[dynamicStyles.statCard, { borderLeftColor: colors.success }]}>
           <View style={dynamicStyles.statContent}>
