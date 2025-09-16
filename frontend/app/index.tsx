@@ -3559,6 +3559,33 @@ const MainApp = () => {
       borderWidth: 1,
       borderColor: colors.border,
     },
+    // Team Profile Photo Styles
+    officerHeader: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginBottom: 8,
+    },
+    profilePhotoContainer: {
+      marginRight: 12,
+    },
+    profilePhoto: {
+      width: 40,
+      height: 40,
+      borderRadius: 20,
+      resizeMode: 'cover',
+      borderWidth: 2,
+      borderColor: colors.primary,
+    },
+    profilePhotoPlaceholder: {
+      width: 40,
+      height: 40,
+      borderRadius: 20,
+      backgroundColor: colors.surface,
+      borderWidth: 2,
+      borderColor: colors.border,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
     locationInput: {
       flexDirection: 'row',
       alignItems: 'center',
