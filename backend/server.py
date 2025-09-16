@@ -102,6 +102,7 @@ class UserCreate(BaseModel):
     phone: Optional[str] = None
     service_number: Optional[str] = None
     rank: Optional[str] = None
+    photo: Optional[str] = None
 
 class UserUpdate(BaseModel):
     username: Optional[str] = None
