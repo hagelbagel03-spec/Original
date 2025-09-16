@@ -450,8 +450,8 @@ const LoginScreen = () => {
               <Ionicons name="shield-checkmark" size={50} color="#FFFFFF" />
             </View>
           </View>
-          <Text style={dynamicStyles.title}>Stadtwache</Text>
-          <Text style={dynamicStyles.subtitle}>Sicherheitsbehörde Schwelm</Text>
+          <Text style={dynamicStyles.title}>{appConfig.app_name}</Text>
+          <Text style={dynamicStyles.subtitle}>{appConfig.organization_name}</Text>
         </View>
 
         <View style={dynamicStyles.form}>
