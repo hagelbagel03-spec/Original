@@ -715,6 +715,17 @@ const AddUserModal: React.FC<AddUserModalProps> = ({ visible, onClose, onUserAdd
             </View>
 
             <View style={dynamicStyles.formGroup}>
+              <Text style={dynamicStyles.formLabel}>👥 Team</Text>
+              <TextInput
+                style={dynamicStyles.formInput}
+                value={formData.team}
+                onChangeText={(value) => updateField('team', value)}
+                placeholder="z.B. Team Alpha, Team Bravo"
+                placeholderTextColor={colors.textMuted}
+              />
+            </View>
+
+            <View style={dynamicStyles.formGroup}>
               <Text style={dynamicStyles.formLabel}>🆔 Dienstnummer</Text>
               <TextInput
                 style={dynamicStyles.formInput}
