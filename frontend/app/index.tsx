@@ -2993,6 +2993,25 @@ const MainApp = ({ appConfig, setAppConfig }) => {
       justifyContent: 'center',
       alignItems: 'center',
     },
+    sosHeaderButton: {
+      backgroundColor: '#FF0000',
+      flexDirection: 'row',
+      paddingHorizontal: 8,
+      width: 60,
+      height: 36,
+      borderRadius: 18,
+      gap: 4,
+      shadowColor: '#FF0000',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.5,
+      shadowRadius: 4,
+      elevation: 6,
+    },
+    sosButtonText: {
+      color: '#FFFFFF',
+      fontSize: 11,
+      fontWeight: 'bold',
+    },
 
     // Modern Stats
     statsContainer: {
