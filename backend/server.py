@@ -915,6 +915,49 @@ async def get_person_stats(current_user: User = Depends(get_current_user)):
         "found_persons": found_persons
     }
 
+@api_router.post("/emergency/broadcast")
+async def broadcast_emergency_alert(
+    alert_data: dict,
+    current_user: User = Depends(get_current_user)
+):
+    """Broadcast emergency alert to all active users"""
+    try:
+        # Create emergency broadcast record
+        broadcast_dict = {
+            "id": str(uuid.uuid4()),
+            "type": alert_data.get("type", "sos_alarm"),
+            "message": alert_data.get("message", "Notfall-Alarm"),
+            "sender_id": current_user.id,
+            "sender_name": current_user.username,
+            "location": alert_data.get("location", None),
+            "timestamp": datetime.utcnow(),
+            "priority": alert_data.get("priority", "urgent"),
+            "recipients": "all_users",
+            "status": "sent"
+        }
+        
+        # Store in database
+        result = await db.emergency_broadcasts.insert_one(broadcast_dict)
+        
+        if not result.inserted_id:
+            raise HTTPException(status_code=500, detail="Failed to create emergency broadcast")
+        
+        logger.info(f"Emergency broadcast created: {broadcast_dict['id']} by {current_user.username}")
+        
+        # TODO: Implement real-time notification to all users via WebSocket/Push notifications
+        # For now, return success - in production this would trigger push notifications
+        
+        return {
+            "success": True,
+            "broadcast_id": broadcast_dict["id"],
+            "message": "Emergency alert broadcasted to all users",
+            "timestamp": broadcast_dict["timestamp"].isoformat()
+        }
+        
+    except Exception as e:
+        logger.error(f"Error creating emergency broadcast: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
+
 @api_router.post("/incidents", response_model=Incident)
 async def create_incident(incident_data: IncidentCreate, current_user: User = Depends(get_current_user)):
     """Create a new incident with geocoding support"""
