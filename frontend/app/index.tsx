@@ -7688,10 +7688,11 @@ const MainApp = ({ appConfig, setAppConfig }) => {
             style={{ flex: 1 }}
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           >
-            <ScrollView style={dynamicStyles.modalContent} showsVerticalScrollIndicator={false}>
-              
+              {/* Report Title - Same as Incident */}
               <View style={dynamicStyles.formGroup}>
-                <Text style={dynamicStyles.formLabel}>📋 Berichtstitel *</Text>
+                <Text style={dynamicStyles.formLabel}>
+                  📋 Bericht-Titel *
+                </Text>
                 <TextInput
                   style={dynamicStyles.formInput}
                   value={reportFormData.title}
@@ -7701,21 +7702,13 @@ const MainApp = ({ appConfig, setAppConfig }) => {
                 />
               </View>
 
+              {/* Report Content - Same styling as Incident description */}
               <View style={dynamicStyles.formGroup}>
-                <Text style={dynamicStyles.formLabel}>📅 Schichtdatum</Text>
+                <Text style={dynamicStyles.formLabel}>
+                  📝 Bericht-Inhalt *
+                </Text>
                 <TextInput
-                  style={dynamicStyles.formInput}
-                  value={reportFormData.shift_date}
-                  onChangeText={(text) => setReportFormData({...reportFormData, shift_date: text})}
-                  placeholder="YYYY-MM-DD"
-                  placeholderTextColor={colors.textMuted}
-                />
-              </View>
-
-              <View style={dynamicStyles.formGroup}>
-                <Text style={dynamicStyles.formLabel}>📝 Berichtsinhalt *</Text>
-                <TextInput
-                  style={[dynamicStyles.formInput, dynamicStyles.reportTextArea]}
+                  style={[dynamicStyles.formInput, dynamicStyles.textArea]}
                   value={reportFormData.content}
                   onChangeText={(text) => setReportFormData({...reportFormData, content: text})}
                   placeholder={`Schreiben Sie hier Ihren detaillierten Bericht...
