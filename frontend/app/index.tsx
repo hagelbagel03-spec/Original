@@ -944,10 +944,12 @@ const MainApp = ({ appConfig, setAppConfig }) => {
 
       setShowReportModal(false);
       setEditingReport(null);
+      // Reset form data including images
       setReportFormData({
         title: '',
         content: '',
-        shift_date: new Date().toISOString().split('T')[0]
+        shift_date: new Date().toISOString().split('T')[0],
+        images: []
       });
       
       // Reload reports
