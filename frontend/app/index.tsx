@@ -1529,7 +1529,69 @@ const MainApp = () => {
     }
   };
 
-  // Image picker functions
+  // Image picker functions for incidents
+  const pickImageForIncident = async () => {
+    try {
+      const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      
+      if (permissionResult.granted === false) {
+        Alert.alert('📸 Berechtigung erforderlich', 'Berechtigung für Galerie-Zugriff erforderlich');
+        return;
+      }
+
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [16, 9],
+        quality: 0.8,
+        base64: true,
+      });
+
+      if (!result.canceled && result.assets[0].base64) {
+        const base64Image = `data:image/jpeg;base64,${result.assets[0].base64}`;
+        setIncidentFormData({
+          ...incidentFormData,
+          photo: base64Image
+        });
+        console.log('📸 Incident photo selected');
+      }
+    } catch (error) {
+      console.error('❌ Image picker error:', error);
+      Alert.alert('❌ Fehler', 'Fehler beim Auswählen des Bildes');
+    }
+  };
+
+  const takePhotoForIncident = async () => {
+    try {
+      const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+      
+      if (permissionResult.granted === false) {
+        Alert.alert('📷 Berechtigung erforderlich', 'Berechtigung für Kamera-Zugriff erforderlich');
+        return;
+      }
+
+      const result = await ImagePicker.launchCameraAsync({
+        allowsEditing: true,
+        aspect: [16, 9],
+        quality: 0.8,
+        base64: true,
+      });
+
+      if (!result.canceled && result.assets[0].base64) {
+        const base64Image = `data:image/jpeg;base64,${result.assets[0].base64}`;
+        setIncidentFormData({
+          ...incidentFormData,
+          photo: base64Image
+        });
+        console.log('📷 Incident photo taken');
+      }
+    } catch (error) {
+      console.error('❌ Camera error:', error);
+      Alert.alert('❌ Fehler', 'Fehler beim Aufnehmen des Fotos');
+    }
+  };
+
+  // Image picker functions for persons
   const pickImageForPerson = async () => {
     try {
       const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
