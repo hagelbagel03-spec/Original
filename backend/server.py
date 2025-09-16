@@ -174,7 +174,7 @@ class Person(BaseModel):
     address: Optional[str] = None
     age: Optional[int] = None
     birth_date: Optional[str] = None  # Format: YYYY-MM-DD
-    status: str  # "gesucht", "vermisst", "gefunden", "archiviert"
+    status: str  # "gesucht", "vermisst", "gefunden", "erledigt", "archiviert"
     description: Optional[str] = None
     last_seen_location: Optional[str] = None
     last_seen_date: Optional[str] = None
