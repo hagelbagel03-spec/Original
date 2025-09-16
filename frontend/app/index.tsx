@@ -5280,7 +5280,11 @@ const MainApp = () => {
 
       {/* Professional Stats Dashboard */}
       <View style={dynamicStyles.statsContainer}>
-        <View style={[dynamicStyles.statCard, { borderLeftColor: colors.error }]}>
+        <TouchableOpacity 
+          style={[dynamicStyles.statCard, { borderLeftColor: colors.error }]}
+          onPress={() => setActiveTab('incidents')}
+          activeOpacity={0.7}
+        >
           <View style={dynamicStyles.statContent}>
             <View style={dynamicStyles.statHeader}>
               <View style={[dynamicStyles.statIconContainer, { backgroundColor: colors.error + '15' }]}>
@@ -5294,7 +5298,7 @@ const MainApp = () => {
             <Text style={dynamicStyles.statLabel}>Aktuelle Vorfälle</Text>
             <Text style={dynamicStyles.statSubtext}>+{recentIncidents.filter(i => new Date(i.created_at) > new Date(Date.now() - 24*60*60*1000)).length} heute</Text>
           </View>
-        </View>
+        </TouchableOpacity>
         
         <View style={[dynamicStyles.statCard, { borderLeftColor: colors.primary }]}>
           <View style={dynamicStyles.statContent}>
