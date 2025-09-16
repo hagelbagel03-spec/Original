@@ -448,6 +448,68 @@ const AddUserModal: React.FC<AddUserModalProps> = ({ visible, onClose, onUserAdd
               />
             </View>
 
+            {/* Profile Photo Upload */}
+            <View style={dynamicStyles.formGroup}>
+              <Text style={dynamicStyles.formLabel}>📸 Profilbild (optional)</Text>
+              <View style={dynamicStyles.photoUploadContainer}>
+                {formData.photo ? (
+                  <TouchableOpacity 
+                    style={dynamicStyles.photoPreview}
+                    onPress={() => {
+                      Alert.alert(
+                        '📸 Profilbild ändern',
+                        'Möchten Sie das Profilbild ändern oder entfernen?',
+                        [
+                          { text: 'Abbrechen', style: 'cancel' },
+                          { 
+                            text: 'Entfernen', 
+                            style: 'destructive',
+                            onPress: () => setFormData(prev => ({...prev, photo: ''}))
+                          },
+                          { text: 'Neues Foto', onPress: async () => {
+                            const photo = await pickImageForUser();
+                            if (photo) setFormData(prev => ({...prev, photo}));
+                          }}
+                        ]
+                      );
+                    }}
+                  >
+                    <Image 
+                      source={{ uri: formData.photo }} 
+                      style={dynamicStyles.profilePhotoPreview}
+                    />
+                    <View style={dynamicStyles.photoOverlay}>
+                      <Ionicons name="camera" size={20} color="#FFFFFF" />
+                    </View>
+                  </TouchableOpacity>
+                ) : (
+                  <View style={dynamicStyles.photoUploadButtons}>
+                    <TouchableOpacity 
+                      style={[dynamicStyles.photoButton, { backgroundColor: colors.primary }]}
+                      onPress={async () => {
+                        const photo = await pickImageForUser();
+                        if (photo) setFormData(prev => ({...prev, photo}));
+                      }}
+                    >
+                      <Ionicons name="images" size={20} color="#FFFFFF" />
+                      <Text style={dynamicStyles.photoButtonText}>Galerie</Text>
+                    </TouchableOpacity>
+                    
+                    <TouchableOpacity 
+                      style={[dynamicStyles.photoButton, { backgroundColor: colors.secondary || colors.primary }]}
+                      onPress={async () => {
+                        const photo = await takePhotoForUser();
+                        if (photo) setFormData(prev => ({...prev, photo}));
+                      }}
+                    >
+                      <Ionicons name="camera" size={20} color="#FFFFFF" />
+                      <Text style={dynamicStyles.photoButtonText}>Kamera</Text>
+                    </TouchableOpacity>
+                  </View>
+                )}
+              </View>
+            </View>
+
             <View style={dynamicStyles.formGroup}>
               <Text style={dynamicStyles.formLabel}>
                 🔐 Passwort <Text style={dynamicStyles.required}>*</Text>
