@@ -720,7 +720,8 @@ const MainApp = ({ appConfig, setAppConfig }) => {
   const [reportFormData, setReportFormData] = useState({
     title: '',
     content: '',
-    shift_date: new Date().toISOString().split('T')[0]
+    shift_date: new Date().toISOString().split('T')[0],
+    images: [] // Array for multiple images like incidents
   });
   const [savingReport, setSavingReport] = useState(false);
 
