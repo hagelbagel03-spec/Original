@@ -568,6 +568,7 @@ class Report(BaseModel):
     author_id: str
     author_name: str
     shift_date: str
+    images: List[str] = []  # base64 encoded images from incidents
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
     status: str = "draft"  # draft, submitted, reviewed
