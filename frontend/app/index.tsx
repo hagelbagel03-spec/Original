@@ -7310,6 +7310,20 @@ const MainApp = () => {
                   <Ionicons name="add-circle" size={20} color={colors.primary} />
                   <Text style={dynamicStyles.quickLinkText}>📝 Vorfall melden</Text>
                 </TouchableOpacity>
+
+                {/* Admin Settings Link - Only for Admins */}
+                {user?.role === 'admin' && (
+                  <TouchableOpacity 
+                    style={[dynamicStyles.quickLinkButton, { borderColor: colors.accent, backgroundColor: colors.accent + '10' }]}
+                    onPress={() => {
+                      setShowProfileModal(false);
+                      setShowAdminSettingsModal(true);
+                    }}
+                  >
+                    <Ionicons name="settings" size={20} color={colors.accent} />
+                    <Text style={[dynamicStyles.quickLinkText, { color: colors.accent }]}>⚙️ Admin Einstellungen</Text>
+                  </TouchableOpacity>
+                )}
               </View>
             </View>
 
