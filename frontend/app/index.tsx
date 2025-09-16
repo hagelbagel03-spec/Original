@@ -5835,13 +5835,17 @@ const MainApp = () => {
                   <Text style={dynamicStyles.emptyStateText}>
                     {searchQuery 
                       ? `Keine Personen gefunden für "${searchQuery}"` 
-                      : "Keine Personen in der Datenbank"
+                      : personFilter !== 'all'
+                        ? `Keine ${personFilter === 'vermisst' ? 'vermissten' : personFilter === 'gesucht' ? 'gesuchten' : 'gefundenen'} Personen`
+                        : "Keine Personen in der Datenbank"
                     }
                   </Text>
                   <Text style={dynamicStyles.emptyStateSubtext}>
                     {searchQuery 
                       ? "Versuchen Sie eine andere Suchanfrage"
-                      : "Fügen Sie neue Personen hinzu, um sie zu verwalten"
+                      : personFilter !== 'all'
+                        ? "Wählen Sie eine andere Kategorie oder fügen Sie neue Personen hinzu"
+                        : "Fügen Sie neue Personen hinzu, um sie zu verwalten"
                     }
                   </Text>
                 </View>
