@@ -7582,6 +7582,7 @@ const MainApp = ({ appConfig, setAppConfig }) => {
       );
       case 'berichte': return renderBerichteScreen();
       case 'team': return renderTeamScreen();
+      case 'myteam': return renderMyTeamScreen();
       case 'database': return renderDatabaseScreen();
       case 'admin': return renderAdminScreen();
       default: return renderHomeScreen();
