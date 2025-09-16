@@ -7836,16 +7836,28 @@ const MainApp = ({ appConfig, setAppConfig }) => {
         presentationStyle="pageSheet"
         onRequestClose={() => setShowReportModal(false)}
       >
-        <View style={dynamicStyles.content}>
-          <View style={dynamicStyles.header}>
-            <Text style={dynamicStyles.title}>📝 Bericht erstellen</Text>
-            <Text style={dynamicStyles.subtitle}>
-              {editingReport ? 'Bericht bearbeiten und aktualisieren' : 'Neuen Tagesbericht erfassen'}
-            </Text>
+        <SafeAreaView style={dynamicStyles.container}>
+          <View style={dynamicStyles.profileModalHeader}>
+            <TouchableOpacity 
+              style={dynamicStyles.profileCloseButton}
+              onPress={() => setShowReportModal(false)}
+            >
+              <Ionicons name="arrow-back" size={24} color={colors.textMuted} />
+            </TouchableOpacity>
+            
+            <View style={dynamicStyles.profileHeaderContent}>
+              <View style={dynamicStyles.profileIconContainer}>
+                <Ionicons name="document-text" size={32} color={colors.primary} />
+              </View>
+              <Text style={dynamicStyles.profileTitle}>📝 Bericht erstellen</Text>
+              <Text style={dynamicStyles.profileSubtitle}>
+                {editingReport ? 'Bericht bearbeiten und aktualisieren' : 'Neuen Tagesbericht erfassen'}
+              </Text>
+            </View>
           </View>
 
           <ScrollView 
-            style={dynamicStyles.content}
+            style={dynamicStyles.profileContent}
             keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}
           >
