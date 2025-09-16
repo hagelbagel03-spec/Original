@@ -58,17 +58,42 @@ const GoogleMapsView = ({ incident }: { incident: any }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.mapContainer}>
-        <View style={styles.mapView}>
-          <Ionicons name="map" size={32} color={colors.primary} />
-          <Text style={styles.mapTitle}>🗺️ Live-Karte</Text>
-          <Text style={styles.mapSubtitle}>
-            📍 {incident.address}
-          </Text>
-          <Text style={styles.mapCoordinates}>
-            {coordinates.lat.toFixed(6)}, {coordinates.lng.toFixed(6)}
+      <MapView
+        style={styles.map}
+        provider={Platform.OS === 'android' ? PROVIDER_GOOGLE : undefined}
+        initialRegion={{
+          latitude: coordinates.lat,
+          longitude: coordinates.lng,
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.01,
+        }}
+        showsUserLocation={true}
+        showsMyLocationButton={true}
+        toolbarEnabled={true}
+        zoomEnabled={true}
+        scrollEnabled={true}
+      >
+        <Marker
+          coordinate={{
+            latitude: coordinates.lat,
+            longitude: coordinates.lng,
+          }}
+          title={incident.title}
+          description={incident.address}
+          pinColor={getPriorityColor(incident.priority)}
+        />
+      </MapView>
+      
+      {/* Info Overlay */}
+      <View style={styles.infoOverlay}>
+        <View style={[styles.priorityBadge, {
+          backgroundColor: getPriorityColor(incident.priority)
+        }]}>
+          <Text style={styles.priorityText}>
+            {incident.priority?.toUpperCase() || 'NORMAL'} PRIORITÄT
           </Text>
         </View>
+        <Text style={styles.addressText}>📍 {incident.address}</Text>
       </View>
     </View>
   );
