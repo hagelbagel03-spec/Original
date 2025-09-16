@@ -919,16 +919,25 @@ const MainApp = ({ appConfig, setAppConfig }) => {
         headers: { Authorization: `Bearer ${token}` }
       } : {};
 
+      const reportData = {
+        title: reportFormData.title.trim(),
+        content: reportFormData.content.trim(),
+        shift_date: reportFormData.shift_date,
+        author_id: user.id,
+        author_name: user.username,
+        images: reportFormData.images || []
+      };
+
       if (editingReport) {
         // Update existing report
         console.log('📝 Updating report:', editingReport.id);
-        const response = await axios.put(`${API_URL}/api/reports/${editingReport.id}`, reportFormData, config);
+        const response = await axios.put(`${API_URL}/api/reports/${editingReport.id}`, reportData, config);
         console.log('✅ Report updated successfully');
         Alert.alert('✅ Erfolg', 'Bericht wurde erfolgreich aktualisiert!');
       } else {
         // Create new report
         console.log('📝 Creating new report');
-        const response = await axios.post(`${API_URL}/api/reports`, reportFormData, config);
+        const response = await axios.post(`${API_URL}/api/reports`, reportData, config);
         console.log('✅ Report created successfully');
         Alert.alert('✅ Erfolg', 'Bericht wurde erfolgreich erstellt!');
       }
