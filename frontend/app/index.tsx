@@ -2927,6 +2927,35 @@ const MainApp = () => {
       fontWeight: '600',
     },
 
+    // Category Filter Tabs
+    categoryTabs: {
+      marginBottom: 16,
+    },
+    categoryTabsContent: {
+      paddingHorizontal: 4,
+    },
+    categoryTab: {
+      paddingHorizontal: 16,
+      paddingVertical: 10,
+      marginHorizontal: 4,
+      borderRadius: 20,
+      backgroundColor: colors.surface,
+      borderWidth: 1,
+      borderColor: colors.border,
+    },
+    categoryTabActive: {
+      backgroundColor: colors.primary,
+      borderColor: colors.primary,
+    },
+    categoryTabText: {
+      fontSize: 14,
+      fontWeight: '600',
+      color: colors.textSecondary,
+    },
+    categoryTabTextActive: {
+      color: '#FFFFFF',
+    },
+
     // Person Modal Picker Styles
     pickerContainer: {
       flexDirection: 'row',
