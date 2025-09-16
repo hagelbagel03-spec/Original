@@ -7736,23 +7736,6 @@ const MainApp = ({ appConfig, setAppConfig }) => {
           </Text>
         </TouchableOpacity>
         
-        {/* Team Button - nur für Team-Mitglieder */}
-        {(user?.team || user?.department) && (
-          <TouchableOpacity 
-            style={[dynamicStyles.tabItem, activeTab === 'myteam' && dynamicStyles.tabItemActive]}
-            onPress={() => setActiveTab('myteam')}
-          >
-            <Ionicons 
-              name={activeTab === 'myteam' ? 'people' : 'people-outline'} 
-              size={24} 
-              color={activeTab === 'myteam' ? '#FFFFFF' : colors.textMuted} 
-            />
-            <Text style={[dynamicStyles.tabLabel, activeTab === 'myteam' && dynamicStyles.tabLabelActive]}>
-              {user.team || user.department}
-            </Text>
-          </TouchableOpacity>
-        )}
-        
         <TouchableOpacity 
           style={[dynamicStyles.tabItem, activeTab === 'berichte' && dynamicStyles.tabItemActive]}
           onPress={() => setActiveTab('berichte')}
