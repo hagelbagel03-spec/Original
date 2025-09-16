@@ -1905,7 +1905,7 @@ const MainApp = ({ appConfig, setAppConfig }) => {
       
       console.log('📊 Sending update data:', updateData);
       
-      await axios.put(`${API_URL}/api/reports/${reportId}`, updateData, config);
+      await axios.put(`${BACKEND_BASE_URL}/api/reports/${reportId}`, updateData, config);
       
       const statusText = {
         'in_progress': 'IN BEARBEITUNG',
