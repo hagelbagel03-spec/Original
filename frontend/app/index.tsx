@@ -6983,6 +6983,7 @@ const MainApp = ({ appConfig, setAppConfig }) => {
       case 'berichte': return renderBerichteScreen();
       case 'team': return renderTeamScreen();
       case 'database': return renderDatabaseScreen();
+      case 'admin': return renderAdminScreen();
       default: return renderHomeScreen();
     }
   };
