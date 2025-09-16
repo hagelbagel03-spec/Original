@@ -87,6 +87,7 @@ class User(BaseModel):
     service_number: Optional[str] = None
     rank: Optional[str] = None
     status: str = "Im Dienst"  # Im Dienst, Pause, Einsatz, Streife, Nicht verfügbar
+    photo: Optional[str] = None  # base64 encoded profile photo
     is_active: bool = True
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
