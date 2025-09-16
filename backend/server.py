@@ -218,6 +218,25 @@ class PersonUpdate(BaseModel):
     priority: Optional[str] = None
     photo: Optional[str] = None
 
+class AppConfiguration(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    app_name: str = "Stadtwache"
+    app_subtitle: str = "Polizei Management System"
+    app_icon: Optional[str] = None  # base64 encoded icon
+    organization_name: str = "Sicherheitsbehörde Schwelm"
+    primary_color: str = "#1E40AF"
+    secondary_color: str = "#3B82F6"
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    updated_at: datetime = Field(default_factory=datetime.utcnow)
+
+class AppConfigurationUpdate(BaseModel):
+    app_name: Optional[str] = None
+    app_subtitle: Optional[str] = None
+    app_icon: Optional[str] = None
+    organization_name: Optional[str] = None
+    primary_color: Optional[str] = None
+    secondary_color: Optional[str] = None
+
 # Security functions
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     """Verify a password against its hash"""
