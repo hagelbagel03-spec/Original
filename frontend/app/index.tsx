@@ -5695,6 +5695,16 @@ const MainApp = () => {
             <Ionicons name="person-add" size={20} color="#FFFFFF" />
             <Text style={dynamicStyles.actionText}>Neuen Benutzer hinzufügen</Text>
           </TouchableOpacity>
+          
+          <TouchableOpacity 
+            style={[dynamicStyles.actionButton, { backgroundColor: colors.accent }]}
+            onPress={() => setShowAdminSettingsModal(true)}
+            accessible={true}
+            accessibilityLabel="Admin Einstellungen öffnen"
+          >
+            <Ionicons name="settings" size={20} color="#FFFFFF" />
+            <Text style={dynamicStyles.actionText}>App-Einstellungen</Text>
+          </TouchableOpacity>
         </View>
       )}
 
