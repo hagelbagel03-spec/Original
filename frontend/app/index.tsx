@@ -2410,9 +2410,6 @@ const MainApp = () => {
   const getCurrentLocation = async () => {
     console.log('📍 GPS Button geklickt - starte Standortermittlung...');
     try {
-      // Import Expo Location at the top of the file instead of dynamically
-      const Location = require('expo-location');
-      
       console.log('📍 Bitte um Standort-Berechtigung...');
       
       // Request location permission with error handling
