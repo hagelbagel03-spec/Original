@@ -58,21 +58,15 @@ const GoogleMapsView = ({ incident }: { incident: any }) => {
   return (
     <View style={styles.container}>
       <View style={styles.mapContainer}>
-        <View style={styles.mapPlaceholder}>
-          <Ionicons name="location" size={48} color={getPriorityColor(incident.priority)} />
-          <Text style={styles.incidentTitle}>📍 {incident.title}</Text>
-          <Text style={styles.incidentAddress}>{incident.address}</Text>
-          <Text style={styles.coordinates}>
-            🧭 {coordinates.lat.toFixed(6)}, {coordinates.lng.toFixed(6)}
+        <View style={styles.mapView}>
+          <Ionicons name="map" size={32} color={colors.primary} />
+          <Text style={styles.mapTitle}>🗺️ Live-Karte</Text>
+          <Text style={styles.mapSubtitle}>
+            📍 {incident.address}
           </Text>
-          
-          <View style={[styles.priorityBadge, {
-            backgroundColor: getPriorityColor(incident.priority)
-          }]}>
-            <Text style={styles.priorityText}>
-              {incident.priority?.toUpperCase() || 'NORMAL'} PRIORITÄT
-            </Text>
-          </View>
+          <Text style={styles.mapCoordinates}>
+            {coordinates.lat.toFixed(6)}, {coordinates.lng.toFixed(6)}
+          </Text>
         </View>
       </View>
     </View>
