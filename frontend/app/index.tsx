@@ -7363,6 +7363,25 @@ Beispielinhalt:
                 <View style={dynamicStyles.detailCard}>
                   <Text style={dynamicStyles.detailSectionTitle}>📋 Vorfall-Information</Text>
                   
+                  {/* Incident Photo */}
+                  {selectedIncident.images && selectedIncident.images.length > 0 && (
+                    <View style={dynamicStyles.detailRow}>
+                      <Text style={dynamicStyles.detailLabel}>📸 Foto:</Text>
+                      <View style={dynamicStyles.photoContainer}>
+                        <TouchableOpacity onPress={() => {
+                          Alert.alert('📸 Vorfall-Foto', 'Foto des Vorfalls in voller Größe', [
+                            { text: 'OK' }
+                          ]);
+                        }}>
+                          <Image 
+                            source={{ uri: selectedIncident.images[0] }} 
+                            style={dynamicStyles.incidentDetailPhoto}
+                          />
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                  )}
+                  
                   <View style={dynamicStyles.detailRow}>
                     <Text style={dynamicStyles.detailLabel}>🚨 Titel:</Text>
                     <Text style={dynamicStyles.detailValue}>{selectedIncident.title}</Text>
