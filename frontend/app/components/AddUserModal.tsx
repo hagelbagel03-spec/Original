@@ -73,7 +73,8 @@ const AddUserModal: React.FC<AddUserModalProps> = ({ visible, onClose, onUserAdd
     department: '',
     badge_number: '',
     rank: '',
-    phone: ''
+    phone: '',
+    photo: '' // base64 encoded profile photo
   });
   const [loading, setLoading] = useState(false);
   const [showPasswords, setShowPasswords] = useState(false);
