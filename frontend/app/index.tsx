@@ -3659,6 +3659,12 @@ const MainApp = () => {
       alignItems: 'center',
       justifyContent: 'center',
     },
+    // Theme Toggle Button Style
+    themeToggleButton: {
+      backgroundColor: colors.elevated,
+      borderWidth: 1,
+      borderColor: colors.border,
+    },
     incidentDetailPhoto: {
       width: 200,
       height: 120,
