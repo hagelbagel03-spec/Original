@@ -6751,15 +6751,7 @@ Beispielinhalt:
                   </View>
                 </View>
 
-                {/* Standort-Karte mit GoogleMapsView */}
-                {(selectedIncident.location?.lat && selectedIncident.location?.lng) && (
-                  <View style={dynamicStyles.detailCard}>
-                    <Text style={dynamicStyles.detailSectionTitle}>🗺️ Standort-Karte</Text>
-                    <GoogleMapsView incident={selectedIncident} />
-                  </View>
-                )}
-
-                {/* Karte direkt im Detail Modal */}
+                {/* Standort-Karte */}
                 <View style={dynamicStyles.detailCard}>
                   <Text style={dynamicStyles.detailSectionTitle}>🗺️ Standort-Karte</Text>
                   <GoogleMapsView incident={selectedIncident} />
