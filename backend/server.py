@@ -111,6 +111,7 @@ class UserUpdate(BaseModel):
     rank: Optional[str] = None
     department: Optional[str] = None
     status: Optional[str] = None
+    photo: Optional[str] = None
 
 class UserLogin(BaseModel):
     email: EmailStr
