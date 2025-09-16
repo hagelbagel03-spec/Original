@@ -6559,6 +6559,56 @@ const MainApp = ({ appConfig, setAppConfig }) => {
     </View>
   );
 
+  const renderMyTeamScreen = () => {
+    const myTeamMembers = Object.values(usersByStatus).flat().filter(member => 
+      member.team === user?.team
+    );
+
+    return (
+      <View style={dynamicStyles.content}>
+        <View style={dynamicStyles.screenHeader}>
+          <Text style={dynamicStyles.screenTitle}>👥 {user?.team}</Text>
+          <Text style={dynamicStyles.screenSubtitle}>{myTeamMembers.length} Mitglieder</Text>
+        </View>
+
+        <ScrollView style={dynamicStyles.teamList}>
+          {myTeamMembers.map((member) => (
+            <View key={member.id} style={dynamicStyles.teamMemberCard}>
+              <View style={dynamicStyles.memberInfo}>
+                <View style={dynamicStyles.memberPhotoContainer}>
+                  {member.photo ? (
+                    <Image source={{ uri: member.photo }} style={dynamicStyles.memberPhoto} />
+                  ) : (
+                    <View style={dynamicStyles.memberPhotoPlaceholder}>
+                      <Ionicons name="person" size={20} color={colors.textMuted} />
+                    </View>
+                  )}
+                </View>
+                
+                <View style={dynamicStyles.memberDetails}>
+                  <Text style={dynamicStyles.memberName}>{member.username}</Text>
+                  <Text style={dynamicStyles.memberRank}>
+                    🎖️ {member.rank || 'Beamter'} • 🆔 {member.service_number || 'N/A'}
+                  </Text>
+                </View>
+                
+                <View style={dynamicStyles.statusIndicator}>
+                  <View style={[
+                    dynamicStyles.statusDot, 
+                    { backgroundColor: getStatusColor(member.status || 'Im Dienst') }
+                  ]} />
+                  <Text style={dynamicStyles.statusText}>
+                    {member.status || 'Im Dienst'}
+                  </Text>
+                </View>
+              </View>
+            </View>
+          ))}
+        </ScrollView>
+      </View>
+    );
+  };
+
   const renderTeamScreen = () => (
     <View style={dynamicStyles.content}>
       <View style={dynamicStyles.screenHeader}>
