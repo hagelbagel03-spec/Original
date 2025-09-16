@@ -686,33 +686,70 @@ const MainApp = ({ appConfig, setAppConfig }) => {
       
       // Vibration/Sound Alarm
       if (Platform.OS !== 'web') {
-        const { Haptics } = require('expo-haptics');
-        if (Haptics) {
-          await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
-          setTimeout(() => Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error), 500);
-          setTimeout(() => Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error), 1000);
+        try {
+          const { Haptics } = require('expo-haptics');
+          if (Haptics) {
+            await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+            setTimeout(() => Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error), 500);
+            setTimeout(() => Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error), 1000);
+          }
+        } catch (hapticsError) {
+          console.log('⚠️ Haptics nicht verfügbar:', hapticsError.message);
         }
       }
 
-      // Get GPS location
+      // Get GPS location with robust error handling
       let locationData = null;
+      let locationStatus = 'Nicht verfügbar';
+      
       try {
-        const { Location } = require('expo-location');
+        console.log('📍 Starte GPS-Standort-Ermittlung...');
+        
+        // Import Location dynamically to avoid issues
+        const Location = require('expo-location');
+        
+        // Request permissions
+        console.log('📍 Fordere GPS-Berechtigung an...');
         const { status } = await Location.requestForegroundPermissionsAsync();
+        
         if (status === 'granted') {
-          const location = await Location.getCurrentPositionAsync({});
+          console.log('✅ GPS-Berechtigung erhalten');
+          
+          // Get current position with timeout
+          const location = await Promise.race([
+            Location.getCurrentPositionAsync({
+              accuracy: Location.Accuracy.High,
+              timeout: 10000,
+            }),
+            new Promise((_, reject) => 
+              setTimeout(() => reject(new Error('GPS Timeout')), 12000)
+            )
+          ]);
+          
           locationData = {
             latitude: location.coords.latitude,
             longitude: location.coords.longitude,
-            accuracy: location.coords.accuracy
+            accuracy: location.coords.accuracy,
+            timestamp: location.timestamp
           };
-          console.log('📍 GPS-Standort ermittelt:', locationData);
+          
+          locationStatus = `${locationData.latitude.toFixed(6)}, ${locationData.longitude.toFixed(6)}`;
+          console.log('✅ GPS-Standort ermittelt:', locationData);
+          
+        } else {
+          console.log('❌ GPS-Berechtigung verweigert');
+          locationStatus = 'Berechtigung verweigert';
         }
-      } catch (error) {
-        console.log('⚠️ GPS-Standort konnte nicht ermittelt werden:', error);
+        
+      } catch (locationError) {
+        console.log('⚠️ GPS-Fehler:', locationError.message);
+        locationStatus = `Fehler: ${locationError.message}`;
+        
+        // App soll NICHT crashen bei GPS-Problemen
+        locationData = null;
       }
 
-      // Send emergency broadcast to all team members
+      // Send emergency broadcast to all team members (GPS or not)
       const config = token ? { headers: { Authorization: `Bearer ${token}` } } : {};
       
       const emergencyData = {
@@ -721,27 +758,53 @@ const MainApp = ({ appConfig, setAppConfig }) => {
         sender_id: user?.id,
         sender_name: user?.username,
         location: locationData,
+        location_status: locationStatus,
         timestamp: new Date().toISOString(),
         priority: 'critical'
       };
 
+      console.log('📡 Sende Notfall-Broadcast:', emergencyData);
+      
       await axios.post(`${BACKEND_BASE_URL}/api/emergency/broadcast`, emergencyData, config);
       
       setShowSOSModal(false);
       
-      const locationMsg = locationData 
-        ? `\n📍 Standort: ${locationData.latitude.toFixed(6)}, ${locationData.longitude.toFixed(6)}`
-        : '\n📍 Standort: Nicht verfügbar';
+      const successMessage = locationData 
+        ? `Alle Team-Mitglieder wurden alarmiert!\n📍 Standort: ${locationStatus}\n⚡ Genauigkeit: ±${Math.round(locationData.accuracy || 0)}m`
+        : `Alle Team-Mitglieder wurden alarmiert!\n📍 Standort: ${locationStatus}`;
       
       Alert.alert(
         '🚨 SOS-ALARM GESENDET!', 
-        `Alle Team-Mitglieder wurden alarmiert!${locationMsg}`,
+        successMessage,
         [{ text: 'OK', style: 'default' }]
       );
       
     } catch (error) {
       console.error('❌ SOS-Alarm Fehler:', error);
-      Alert.alert('❌ Fehler', 'SOS-Alarm konnte nicht gesendet werden');
+      
+      // Auch bei Fehlern versuchen eine Basis-Nachricht zu senden
+      try {
+        const fallbackData = {
+          type: 'sos_alarm',
+          message: `🚨 NOTFALL-ALARM von ${user?.username} (Fallback)`,
+          sender_id: user?.id,
+          sender_name: user?.username,
+          location: null,
+          location_status: 'Unbekannt - Technischer Fehler',
+          timestamp: new Date().toISOString(),
+          priority: 'critical'
+        };
+        
+        const config = token ? { headers: { Authorization: `Bearer ${token}` } } : {};
+        await axios.post(`${BACKEND_BASE_URL}/api/emergency/broadcast`, fallbackData, config);
+        
+        Alert.alert('🚨 SOS-ALARM GESENDET!', 'Notfall-Alarm wurde gesendet (ohne GPS-Standort)');
+        setShowSOSModal(false);
+        
+      } catch (fallbackError) {
+        console.error('❌ Auch Fallback-Alarm fehlgeschlagen:', fallbackError);
+        Alert.alert('❌ Kritischer Fehler', 'SOS-Alarm konnte nicht gesendet werden. Bitte direkt Kollegen kontaktieren!');
+      }
     }
   };
   
