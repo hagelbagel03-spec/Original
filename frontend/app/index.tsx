@@ -3480,6 +3480,18 @@ const MainApp = () => {
       textAlign: 'center',
       marginTop: 4,
     },
+    formHint: {
+      fontSize: 12,
+      color: colors.textMuted,
+      marginBottom: 12,
+      fontStyle: 'italic',
+    },
+    incidentPhotoPreview: {
+      width: 200,
+      height: 120,
+      borderRadius: 8,
+      resizeMode: 'cover',
+    },
     locationInput: {
       flexDirection: 'row',
       alignItems: 'center',
