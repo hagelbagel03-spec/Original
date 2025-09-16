@@ -6089,19 +6089,11 @@ const MainApp = ({ appConfig, setAppConfig }) => {
 
   const renderAdminScreen = () => (
     <View style={dynamicStyles.content}>
-      {/* Admin Header */}
+      {/* Modern Admin Header */}
       <View style={dynamicStyles.header}>
         <View style={dynamicStyles.headerLeft}>
-          <Text style={dynamicStyles.welcomeText}>⚙️ Admin-Bereich</Text>
-          <Text style={dynamicStyles.usernameText}>System-Konfiguration</Text>
-        </View>
-        <View style={dynamicStyles.headerButtons}>
-          <TouchableOpacity 
-            style={dynamicStyles.headerButton}
-            onPress={() => setShowAdminSettingsModal(true)}
-          >
-            <Ionicons name="settings" size={20} color="#FFFFFF" />
-          </TouchableOpacity>
+          <Text style={dynamicStyles.welcomeText}>⚙️ Admin-Dashboard</Text>
+          <Text style={dynamicStyles.usernameText}>System-Verwaltung</Text>
         </View>
       </View>
 
