@@ -7360,6 +7360,144 @@ Beispielinhalt:
         theme={{ colors, isDarkMode }}
       />
 
+      {/* Admin Settings Modal */}
+      <Modal
+        visible={showAdminSettingsModal}
+        transparent={true}
+        animationType="slide"
+        onRequestClose={() => setShowAdminSettingsModal(false)}
+      >
+        <KeyboardAvoidingView 
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={{ flex: 1 }}
+        >
+          <View style={dynamicStyles.modalOverlay}>
+            <View style={[dynamicStyles.modalContainer, dynamicStyles.adminSettingsContainer]}>
+              <View style={dynamicStyles.adminSettingsHeader}>
+                <TouchableOpacity 
+                  style={dynamicStyles.profileCloseButton}
+                  onPress={() => setShowAdminSettingsModal(false)}
+                >
+                  <Ionicons name="close" size={24} color={colors.textMuted} />
+                </TouchableOpacity>
+                
+                <View style={dynamicStyles.adminHeaderContent}>
+                  <View style={dynamicStyles.adminIconContainer}>
+                    <Ionicons name="settings" size={48} color={colors.primary} />
+                  </View>
+                  <View style={dynamicStyles.adminTitleContainer}>
+                    <Text style={dynamicStyles.adminModalTitle}>Admin Einstellungen</Text>
+                    <Text style={dynamicStyles.adminModalSubtitle}>App-Konfiguration verwalten</Text>
+                  </View>
+                </View>
+                
+                <TouchableOpacity 
+                  style={dynamicStyles.adminSaveButton}
+                  onPress={saveAdminSettings}
+                >
+                  <Ionicons name="checkmark" size={20} color="#FFFFFF" />
+                  <Text style={dynamicStyles.adminSaveButtonText}>Speichern</Text>
+                </TouchableOpacity>
+              </View>
+
+              <ScrollView style={dynamicStyles.modalContent} showsVerticalScrollIndicator={false}>
+                
+                {/* Current Configuration Display */}
+                <View style={dynamicStyles.formGroup}>
+                  <Text style={dynamicStyles.formLabel}>📱 Aktuelle Konfiguration</Text>
+                  <View style={dynamicStyles.currentConfigContainer}>
+                    <Text style={dynamicStyles.configText}>📛 {appConfig.app_name}</Text>
+                    <Text style={dynamicStyles.configText}>📝 {appConfig.app_subtitle}</Text>
+                    <Text style={dynamicStyles.configText}>🏢 {appConfig.organization_name}</Text>
+                  </View>
+                </View>
+
+                {/* App Icon Upload */}
+                <View style={dynamicStyles.formGroup}>
+                  <Text style={dynamicStyles.formLabel}>🎨 App-Icon</Text>
+                  <View style={dynamicStyles.photoUploadContainer}>
+                    {adminSettingsData.app_icon ? (
+                      <TouchableOpacity 
+                        style={dynamicStyles.iconPreview}
+                        onPress={() => {
+                          Alert.alert(
+                            '🎨 App-Icon ändern',
+                            'Möchten Sie das App-Icon ändern oder entfernen?',
+                            [
+                              { text: 'Abbrechen', style: 'cancel' },
+                              { 
+                                text: 'Entfernen', 
+                                style: 'destructive',
+                                onPress: () => setAdminSettingsData(prev => ({...prev, app_icon: ''}))
+                              },
+                              { text: 'Neues Icon', onPress: pickIconForApp }
+                            ]
+                          );
+                        }}
+                      >
+                        <Image 
+                          source={{ uri: adminSettingsData.app_icon }} 
+                          style={dynamicStyles.iconPreviewImage}
+                        />
+                        <View style={dynamicStyles.photoOverlay}>
+                          <Ionicons name="camera" size={20} color="#FFFFFF" />
+                        </View>
+                      </TouchableOpacity>
+                    ) : (
+                      <TouchableOpacity 
+                        style={dynamicStyles.iconUploadButton}
+                        onPress={pickIconForApp}
+                      >
+                        <Ionicons name="image" size={32} color={colors.primary} />
+                        <Text style={dynamicStyles.iconUploadText}>App-Icon auswählen</Text>
+                      </TouchableOpacity>
+                    )}
+                  </View>
+                </View>
+
+                {/* App Name */}
+                <View style={dynamicStyles.formGroup}>
+                  <Text style={dynamicStyles.formLabel}>📛 App-Name</Text>
+                  <TextInput
+                    style={dynamicStyles.formInput}
+                    value={adminSettingsData.app_name}
+                    onChangeText={(text) => setAdminSettingsData(prev => ({...prev, app_name: text}))}
+                    placeholder={appConfig.app_name}
+                    placeholderTextColor={colors.textMuted}
+                  />
+                </View>
+
+                {/* App Subtitle */}
+                <View style={dynamicStyles.formGroup}>
+                  <Text style={dynamicStyles.formLabel}>📝 App-Untertitel</Text>
+                  <TextInput
+                    style={dynamicStyles.formInput}
+                    value={adminSettingsData.app_subtitle}
+                    onChangeText={(text) => setAdminSettingsData(prev => ({...prev, app_subtitle: text}))}
+                    placeholder={appConfig.app_subtitle}
+                    placeholderTextColor={colors.textMuted}
+                  />
+                </View>
+
+                {/* Organization Name */}
+                <View style={dynamicStyles.formGroup}>
+                  <Text style={dynamicStyles.formLabel}>🏢 Organisation</Text>
+                  <TextInput
+                    style={dynamicStyles.formInput}
+                    value={adminSettingsData.organization_name}
+                    onChangeText={(text) => setAdminSettingsData(prev => ({...prev, organization_name: text}))}
+                    placeholder={appConfig.organization_name}
+                    placeholderTextColor={colors.textMuted}
+                  />
+                </View>
+
+                <View style={{ height: 40 }} />
+              </ScrollView>
+            </View>
+          </View>
+        </KeyboardAvoidingView>
+      </Modal>
+
       {/* Person Modal - Personendatenbank */}
       <Modal
         visible={showPersonModal}
