@@ -677,6 +677,7 @@ const MainApp = ({ appConfig, setAppConfig }) => {
   const [selectedIncident, setSelectedIncident] = useState(null);
   const [showAddUserModal, setShowAddUserModal] = useState(false);
   const [showAdminSettingsModal, setShowAdminSettingsModal] = useState(false);
+  const [showSOSModal, setShowSOSModal] = useState(false);
   
   // Profile states
   const [userStatus, setUserStatus] = useState(user?.status || 'Im Dienst');
