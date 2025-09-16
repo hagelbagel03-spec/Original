@@ -3827,6 +3827,42 @@ const MainApp = ({ appConfig, setAppConfig }) => {
       color: colors.text,
       flex: 1,
     },
+    // Admin Screen Styles
+    configItem: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      paddingVertical: 8,
+      borderBottomWidth: 1,
+      borderBottomColor: colors.border,
+    },
+    configLabel: {
+      fontSize: 14,
+      color: colors.textMuted,
+      fontWeight: '500',
+    },
+    configValue: {
+      fontSize: 14,
+      color: colors.text,
+      fontWeight: '600',
+      flex: 1,
+      textAlign: 'right',
+    },
+    adminActionButton: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingVertical: 12,
+      paddingHorizontal: 20,
+      borderRadius: 8,
+      marginTop: 12,
+      gap: 8,
+    },
+    adminActionButtonText: {
+      color: '#FFFFFF',
+      fontSize: 16,
+      fontWeight: '600',
+    },
     // Profile Modal Styles
     profileModalHeader: {
       flexDirection: 'row',
