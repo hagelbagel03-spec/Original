@@ -5638,7 +5638,7 @@ const MainApp = ({ appConfig, setAppConfig }) => {
       <View style={dynamicStyles.statsContainer}>
         <TouchableOpacity 
           style={[dynamicStyles.statCard, { borderLeftColor: colors.error }]}
-          onPress={() => setActiveTab('report')}
+          onPress={openAllIncidentsModal}
           activeOpacity={0.7}
         >
           <View style={dynamicStyles.statContent}>
