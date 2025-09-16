@@ -838,6 +838,7 @@ const MainApp = () => {
     loadChannelMessages('emergency');  
     loadChannelMessages('service');
     if (user) {
+      loadAppConfig(); // Load app config
       setUserStatus(user.status || 'Im Dienst');
       setProfileData({
         username: user.username || '',
