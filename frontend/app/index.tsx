@@ -7035,8 +7035,7 @@ const MainApp = () => {
                   style={dynamicStyles.quickLinkButton}
                   onPress={() => {
                     setShowProfileModal(false);
-                    setActiveTab('incidents');
-                    setShowIncidentModal(true);
+                    setActiveTab('report');
                   }}
                 >
                   <Ionicons name="add-circle" size={20} color={colors.primary} />
