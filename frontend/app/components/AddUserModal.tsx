@@ -427,6 +427,53 @@ const AddUserModal: React.FC<AddUserModalProps> = ({ visible, onClose, onUserAdd
       fontWeight: '600',
       color: colors.textMuted,
     },
+    // Photo Upload Styles
+    photoUploadContainer: {
+      alignItems: 'center',
+      padding: 20,
+      backgroundColor: colors.surface,
+      borderRadius: 12,
+      borderWidth: 2,
+      borderColor: colors.border,
+      borderStyle: 'dashed',
+    },
+    photoUploadButtons: {
+      flexDirection: 'row',
+      gap: 16,
+    },
+    photoButton: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingHorizontal: 20,
+      paddingVertical: 12,
+      borderRadius: 8,
+      gap: 8,
+    },
+    photoButtonText: {
+      color: '#FFFFFF',
+      fontSize: 16,
+      fontWeight: '600',
+    },
+    photoPreview: {
+      position: 'relative',
+      width: 120,
+      height: 120,
+      borderRadius: 60,
+      overflow: 'hidden',
+    },
+    profilePhotoPreview: {
+      width: '100%',
+      height: '100%',
+      resizeMode: 'cover',
+    },
+    photoOverlay: {
+      position: 'absolute',
+      bottom: 0,
+      right: 0,
+      backgroundColor: 'rgba(0,0,0,0.7)',
+      borderRadius: 15,
+      padding: 6,
+    },
   });
 
   const getPasswordStrength = (password: string) => {
