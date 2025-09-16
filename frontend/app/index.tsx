@@ -700,6 +700,24 @@ const MainApp = () => {
     photo: '' // base64 encoded photo (optional)
   });
   const [submittingIncident, setSubmittingIncident] = useState(false);
+  
+  // App Configuration States
+  const [appConfig, setAppConfig] = useState({
+    app_name: 'Stadtwache',
+    app_subtitle: 'Polizei Management System',
+    app_icon: null,
+    organization_name: 'Sicherheitsbehörde Schwelm',
+    primary_color: '#1E40AF',
+    secondary_color: '#3B82F6'
+  });
+  const [adminSettingsData, setAdminSettingsData] = useState({
+    app_name: '',
+    app_subtitle: '',
+    app_icon: '',
+    organization_name: '',
+    primary_color: '',
+    secondary_color: ''
+  });
 
   // Report/Berichte states
   const [reports, setReports] = useState([]);
