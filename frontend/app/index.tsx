@@ -3492,6 +3492,14 @@ const MainApp = () => {
       borderRadius: 8,
       resizeMode: 'cover',
     },
+    reportPhoto: {
+      width: 150,
+      height: 90,
+      borderRadius: 8,
+      resizeMode: 'cover',
+      borderWidth: 1,
+      borderColor: colors.border,
+    },
     locationInput: {
       flexDirection: 'row',
       alignItems: 'center',
