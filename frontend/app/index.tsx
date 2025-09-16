@@ -7946,8 +7946,8 @@ Beispielinhalt:
                 <View style={dynamicStyles.detailCard}>
                   <Text style={dynamicStyles.detailSectionTitle}>📋 Bericht-Information</Text>
                   
-                  {/* Report Photo */}
-                  {selectedReport.photo && (
+                  {/* Report Photo - from images array */}
+                  {selectedReport.images && selectedReport.images.length > 0 && (
                     <View style={dynamicStyles.detailRow}>
                       <Text style={dynamicStyles.detailLabel}>📸 Foto:</Text>
                       <View style={dynamicStyles.photoContainer}>
