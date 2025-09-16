@@ -3792,6 +3792,32 @@ const MainApp = () => {
       fontSize: 14,
       fontWeight: '600',
     },
+    // Quick Navigation Links Styles
+    quickLinksContainer: {
+      gap: 12,
+    },
+    quickLinkButton: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      backgroundColor: colors.surface,
+      paddingHorizontal: 16,
+      paddingVertical: 14,
+      borderRadius: 12,
+      borderWidth: 1,
+      borderColor: colors.border,
+      gap: 12,
+      shadowColor: colors.shadow,
+      shadowOffset: { width: 0, height: 1 },
+      shadowOpacity: 0.1,
+      shadowRadius: 4,
+      elevation: 2,
+    },
+    quickLinkText: {
+      fontSize: 16,
+      fontWeight: '600',
+      color: colors.text,
+      flex: 1,
+    },
     incidentDetailPhoto: {
       width: 200,
       height: 120,
