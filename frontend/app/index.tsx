@@ -684,7 +684,8 @@ const MainApp = () => {
     phone: user?.phone || '',
     service_number: user?.service_number || '',
     rank: user?.rank || '',
-    department: user?.department || ''
+    department: user?.department || '',
+    photo: user?.photo || ''
   });
 
   // Incident states
