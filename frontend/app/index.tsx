@@ -7935,6 +7935,25 @@ Beispielinhalt:
                 <View style={dynamicStyles.detailCard}>
                   <Text style={dynamicStyles.detailSectionTitle}>📋 Bericht-Information</Text>
                   
+                  {/* Report Photo */}
+                  {selectedReport.photo && (
+                    <View style={dynamicStyles.detailRow}>
+                      <Text style={dynamicStyles.detailLabel}>📸 Foto:</Text>
+                      <View style={dynamicStyles.photoContainer}>
+                        <TouchableOpacity onPress={() => {
+                          Alert.alert('📸 Foto', 'Foto des Berichts', [
+                            { text: 'OK' }
+                          ]);
+                        }}>
+                          <Image 
+                            source={{ uri: selectedReport.photo }} 
+                            style={dynamicStyles.reportPhoto}
+                          />
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                  )}
+                  
                   <View style={dynamicStyles.detailRow}>
                     <Text style={dynamicStyles.detailLabel}>🚨 Titel:</Text>
                     <Text style={dynamicStyles.detailValue}>
