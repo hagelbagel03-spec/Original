@@ -6746,13 +6746,30 @@ const MainApp = () => {
         onRequestClose={() => setShowProfileModal(false)}
       >
         <SafeAreaView style={dynamicStyles.container}>
-          <View style={dynamicStyles.modalHeader}>
-            <TouchableOpacity onPress={() => setShowProfileModal(false)}>
-              <Ionicons name="close" size={24} color={colors.text} />
+          <View style={dynamicStyles.profileModalHeader}>
+            <TouchableOpacity 
+              style={dynamicStyles.profileCloseButton}
+              onPress={() => setShowProfileModal(false)}
+            >
+              <Ionicons name="close" size={24} color={colors.textMuted} />
             </TouchableOpacity>
-            <Text style={dynamicStyles.modalTitle}>Profil bearbeiten</Text>
-            <TouchableOpacity onPress={saveProfile}>
-              <Text style={dynamicStyles.saveButtonText}>Speichern</Text>
+            
+            <View style={dynamicStyles.profileHeaderContent}>
+              <View style={dynamicStyles.profileIconContainer}>
+                <Ionicons name="person-circle" size={48} color={colors.primary} />
+              </View>
+              <View style={dynamicStyles.profileTitleContainer}>
+                <Text style={dynamicStyles.profileModalTitle}>Profil bearbeiten</Text>
+                <Text style={dynamicStyles.profileModalSubtitle}>{user?.username} • {user?.role}</Text>
+              </View>
+            </View>
+            
+            <TouchableOpacity 
+              style={dynamicStyles.profileSaveButton}
+              onPress={saveProfile}
+            >
+              <Ionicons name="checkmark" size={20} color="#FFFFFF" />
+              <Text style={dynamicStyles.profileSaveButtonText}>Speichern</Text>
             </TouchableOpacity>
           </View>
 
