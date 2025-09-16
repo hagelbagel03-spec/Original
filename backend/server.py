@@ -605,12 +605,61 @@ async def create_report(report_data: ReportCreate, current_user: User = Depends(
     report_dict = report_data.dict()
     report_dict['author_id'] = current_user.id
     report_dict['author_name'] = current_user.username
-    report_dict['status'] = 'submitted'
-    report_obj = Report(**report_dict)
+    report_dict['status'] = 'draft'
+    report_dict['created_at'] = datetime.utcnow()
+    report_dict['updated_at'] = datetime.utcnow()
     
-    await db.reports.insert_one(report_obj.dict())
+    report_obj = Report(**report_dict)
+    result = await db.reports.insert_one(report_obj.dict())
+    if not result.inserted_id:
+        raise HTTPException(status_code=500, detail="Failed to create report")
     
     return report_obj
+
+@api_router.put("/reports/{report_id}", response_model=Report)
+async def update_report(
+    report_id: str, 
+    report_data: ReportCreate, 
+    current_user: User = Depends(get_current_user)
+):
+    """Update an existing report including status changes"""
+    try:
+        # Find the existing report
+        existing_report = await db.reports.find_one({"id": report_id})
+        
+        if not existing_report:
+            raise HTTPException(status_code=404, detail="Report not found")
+        
+        # Check if user has permission to update this report
+        if existing_report.get("author_id") != current_user.id and current_user.role != 'admin':
+            raise HTTPException(status_code=403, detail="Permission denied")
+        
+        # Prepare update data
+        update_data = report_data.dict()
+        update_data['updated_at'] = datetime.utcnow()
+        
+        # Update the report
+        result = await db.reports.update_one(
+            {"id": report_id},
+            {"$set": update_data}
+        )
+        
+        if result.matched_count == 0:
+            raise HTTPException(status_code=404, detail="Report not found")
+        
+        # Get the updated report
+        updated_report = await db.reports.find_one({"id": report_id})
+        if '_id' in updated_report:
+            del updated_report['_id']
+        
+        logger.info(f"Report updated: {report_id} by {current_user.username} - Status: {update_data.get('status', 'unchanged')}")
+        return Report(**updated_report)
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error updating report: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
 
 @api_router.delete("/reports/{report_id}")
 async def delete_report(report_id: str, current_user: User = Depends(get_current_user)):
