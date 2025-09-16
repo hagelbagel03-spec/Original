@@ -6430,6 +6430,59 @@ Beispielinhalt:
           >
             <ScrollView style={dynamicStyles.modalContent} showsVerticalScrollIndicator={false}>
               
+              {/* Photo Upload Section */}
+              <View style={dynamicStyles.formGroup}>
+                <Text style={dynamicStyles.formLabel}>📸 Foto der Person</Text>
+                <View style={dynamicStyles.photoUploadContainer}>
+                  {personFormData.photo ? (
+                    <TouchableOpacity 
+                      style={dynamicStyles.photoPreview}
+                      onPress={() => {
+                        Alert.alert(
+                          '📸 Foto ändern',
+                          'Möchten Sie das Foto ändern oder entfernen?',
+                          [
+                            { text: 'Abbrechen', style: 'cancel' },
+                            { 
+                              text: 'Entfernen', 
+                              style: 'destructive',
+                              onPress: () => setPersonFormData({...personFormData, photo: ''})
+                            },
+                            { text: 'Neues Foto', onPress: pickImageForPerson }
+                          ]
+                        );
+                      }}
+                    >
+                      <Image 
+                        source={{ uri: personFormData.photo }} 
+                        style={dynamicStyles.photoPreviewImage}
+                      />
+                      <View style={dynamicStyles.photoOverlay}>
+                        <Ionicons name="camera" size={20} color="#FFFFFF" />
+                      </View>
+                    </TouchableOpacity>
+                  ) : (
+                    <View style={dynamicStyles.photoUploadButtons}>
+                      <TouchableOpacity 
+                        style={[dynamicStyles.photoButton, { backgroundColor: colors.primary }]}
+                        onPress={pickImageForPerson}
+                      >
+                        <Ionicons name="images" size={20} color="#FFFFFF" />
+                        <Text style={dynamicStyles.photoButtonText}>Galerie</Text>
+                      </TouchableOpacity>
+                      
+                      <TouchableOpacity 
+                        style={[dynamicStyles.photoButton, { backgroundColor: colors.secondary }]}
+                        onPress={takePhotoForPerson}
+                      >
+                        <Ionicons name="camera" size={20} color="#FFFFFF" />
+                        <Text style={dynamicStyles.photoButtonText}>Kamera</Text>
+                      </TouchableOpacity>
+                    </View>
+                  )}
+                </View>
+              </View>
+
               <View style={dynamicStyles.formGroup}>
                 <Text style={dynamicStyles.formLabel}>👤 Vorname *</Text>
                 <TextInput
