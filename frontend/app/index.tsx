@@ -3713,6 +3713,59 @@ const MainApp = () => {
       borderRadius: 60,
       resizeMode: 'cover',
     },
+    // Profile Modal Styles
+    profileModalHeader: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      paddingHorizontal: 20,
+      paddingVertical: 16,
+      borderBottomWidth: 1,
+      borderBottomColor: colors.border,
+      backgroundColor: colors.elevated,
+    },
+    profileCloseButton: {
+      padding: 8,
+      borderRadius: 20,
+      backgroundColor: colors.surface,
+    },
+    profileHeaderContent: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      flex: 1,
+      marginHorizontal: 16,
+    },
+    profileIconContainer: {
+      marginRight: 12,
+    },
+    profileTitleContainer: {
+      flex: 1,
+    },
+    profileModalTitle: {
+      fontSize: 20,
+      fontWeight: '700',
+      color: colors.text,
+      marginBottom: 2,
+    },
+    profileModalSubtitle: {
+      fontSize: 14,
+      color: colors.textMuted,
+      fontWeight: '500',
+    },
+    profileSaveButton: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      backgroundColor: colors.primary,
+      paddingHorizontal: 16,
+      paddingVertical: 8,
+      borderRadius: 20,
+      gap: 6,
+    },
+    profileSaveButtonText: {
+      color: '#FFFFFF',
+      fontSize: 14,
+      fontWeight: '600',
+    },
     incidentDetailPhoto: {
       width: 200,
       height: 120,
