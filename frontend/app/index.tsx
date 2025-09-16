@@ -6737,17 +6737,66 @@ const MainApp = () => {
 
           <ScrollView style={dynamicStyles.modalContent} showsVerticalScrollIndicator={false}>
             
-            {/* Theme Toggle */}
-            <View style={dynamicStyles.themeToggleContainer}>
-              <Text style={dynamicStyles.themeToggleText}>
-                {isDarkMode ? '🌙 Dunkles Design' : '☀️ Helles Design'}
-              </Text>
-              <Switch
-                value={isDarkMode}
-                onValueChange={toggleTheme}
-                trackColor={{ false: colors.border, true: colors.primary }}
-                thumbColor={isDarkMode ? '#FFFFFF' : colors.primary}
-              />
+            {/* Profile Photo Upload */}
+            <View style={dynamicStyles.formGroup}>
+              <Text style={dynamicStyles.formLabel}>📸 Profilbild</Text>
+              <View style={dynamicStyles.photoUploadContainer}>
+                {profileData.photo ? (
+                  <TouchableOpacity 
+                    style={dynamicStyles.photoPreview}
+                    onPress={() => {
+                      Alert.alert(
+                        '📸 Profilbild ändern',
+                        'Möchten Sie das Profilbild ändern oder entfernen?',
+                        [
+                          { text: 'Abbrechen', style: 'cancel' },
+                          { 
+                            text: 'Entfernen', 
+                            style: 'destructive',
+                            onPress: () => setProfileData({...profileData, photo: ''})
+                          },
+                          { text: 'Neues Foto', onPress: async () => {
+                            const photo = await pickImageForUser();
+                            if (photo) setProfileData({...profileData, photo});
+                          }}
+                        ]
+                      );
+                    }}
+                  >
+                    <Image 
+                      source={{ uri: profileData.photo }} 
+                      style={dynamicStyles.profilePhotoPreview}
+                    />
+                    <View style={dynamicStyles.photoOverlay}>
+                      <Ionicons name="camera" size={20} color="#FFFFFF" />
+                    </View>
+                  </TouchableOpacity>
+                ) : (
+                  <View style={dynamicStyles.photoUploadButtons}>
+                    <TouchableOpacity 
+                      style={[dynamicStyles.photoButton, { backgroundColor: colors.primary }]}
+                      onPress={async () => {
+                        const photo = await pickImageForUser();
+                        if (photo) setProfileData({...profileData, photo});
+                      }}
+                    >
+                      <Ionicons name="images" size={20} color="#FFFFFF" />
+                      <Text style={dynamicStyles.photoButtonText}>Galerie</Text>
+                    </TouchableOpacity>
+                    
+                    <TouchableOpacity 
+                      style={[dynamicStyles.photoButton, { backgroundColor: colors.secondary }]}
+                      onPress={async () => {
+                        const photo = await takePhotoForUser();
+                        if (photo) setProfileData({...profileData, photo});
+                      }}
+                    >
+                      <Ionicons name="camera" size={20} color="#FFFFFF" />
+                      <Text style={dynamicStyles.photoButtonText}>Kamera</Text>
+                    </TouchableOpacity>
+                  </View>
+                )}
+              </View>
             </View>
 
             <View style={dynamicStyles.formGroup}>
