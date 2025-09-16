@@ -281,7 +281,7 @@ const BACKEND_BASE_URL = "http://212.227.57.238:8001";
 };
 
 // Modern Login Screen
-const LoginScreen = () => {
+const LoginScreen = ({ appConfig }) => {
   const { login } = useAuth();
   const { colors, isDarkMode } = useTheme();
   const [email, setEmail] = useState('');
