@@ -5230,30 +5230,54 @@ const MainApp = () => {
         </View>
       </View>
 
-      {/* Modern Stats */}
+      {/* Professional Stats Dashboard */}
       <View style={dynamicStyles.statsContainer}>
-        <View style={dynamicStyles.statCard}>
-          <View style={[dynamicStyles.statIcon, { backgroundColor: '#FEE2E2' }]}>
-            <Ionicons name="alert-circle" size={24} color="#DC2626" />
+        <View style={[dynamicStyles.statCard, { borderLeftColor: colors.error }]}>
+          <View style={dynamicStyles.statContent}>
+            <View style={dynamicStyles.statHeader}>
+              <View style={[dynamicStyles.statIconContainer, { backgroundColor: colors.error + '15' }]}>
+                <Ionicons name="alert-circle" size={24} color={colors.error} />
+              </View>
+              <View style={dynamicStyles.statTrend}>
+                <Ionicons name="trending-up" size={16} color={colors.textMuted} />
+              </View>
+            </View>
+            <Text style={dynamicStyles.statNumber}>{recentIncidents.length}</Text>
+            <Text style={dynamicStyles.statLabel}>Aktuelle Vorfälle</Text>
+            <Text style={dynamicStyles.statSubtext}>+{recentIncidents.filter(i => new Date(i.created_at) > new Date(Date.now() - 24*60*60*1000)).length} heute</Text>
           </View>
-          <Text style={dynamicStyles.statNumber}>{recentIncidents.length}</Text>
-          <Text style={dynamicStyles.statLabel}>Aktuelle{'\n'}Vorfälle</Text>
         </View>
         
-        <View style={dynamicStyles.statCard}>
-          <View style={[dynamicStyles.statIcon, { backgroundColor: '#D1FAE5' }]}>
-            <Ionicons name="people" size={24} color="#059669" />
+        <View style={[dynamicStyles.statCard, { borderLeftColor: colors.primary }]}>
+          <View style={dynamicStyles.statContent}>
+            <View style={dynamicStyles.statHeader}>
+              <View style={[dynamicStyles.statIconContainer, { backgroundColor: colors.primary + '15' }]}>
+                <Ionicons name="people" size={24} color={colors.primary} />
+              </View>
+              <View style={dynamicStyles.statTrend}>
+                <Ionicons name="checkmark-circle" size={16} color={colors.success} />
+              </View>
+            </View>
+            <Text style={dynamicStyles.statNumber}>{Object.values(usersByStatus).flat().length}</Text>
+            <Text style={dynamicStyles.statLabel}>Team Mitglieder</Text>
+            <Text style={dynamicStyles.statSubtext}>{Object.values(usersByStatus).flat().filter(u => u.status === 'Im Dienst').length} im Dienst</Text>
           </View>
-          <Text style={dynamicStyles.statNumber}>{stats.officers}</Text>
-          <Text style={dynamicStyles.statLabel}>👮‍♂️ Beamte{'\n'}im Dienst</Text>
         </View>
         
-        <View style={dynamicStyles.statCard}>
-          <View style={[dynamicStyles.statIcon, { backgroundColor: '#DBEAFE' }]}>
-            <Ionicons name="chatbubbles" size={24} color="#2563EB" />
+        <View style={[dynamicStyles.statCard, { borderLeftColor: colors.success }]}>
+          <View style={dynamicStyles.statContent}>
+            <View style={dynamicStyles.statHeader}>
+              <View style={[dynamicStyles.statIconContainer, { backgroundColor: colors.success + '15' }]}>
+                <Ionicons name="document-text" size={24} color={colors.success} />
+              </View>
+              <View style={dynamicStyles.statTrend}>
+                <Ionicons name="time" size={16} color={colors.textMuted} />
+              </View>
+            </View>
+            <Text style={dynamicStyles.statNumber}>{reports.length}</Text>
+            <Text style={dynamicStyles.statLabel}>Berichte Heute</Text>
+            <Text style={dynamicStyles.statSubtext}>{reports.filter(r => r.status === 'submitted').length} eingereicht</Text>
           </View>
-          <Text style={dynamicStyles.statNumber}>{stats.messages}</Text>
-          <Text style={dynamicStyles.statLabel}>Nachrichten</Text>
         </View>
       </View>
 
