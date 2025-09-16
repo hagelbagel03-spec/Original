@@ -5678,7 +5678,7 @@ const MainApp = ({ appConfig, setAppConfig }) => {
         
         <TouchableOpacity 
           style={[dynamicStyles.statCard, { borderLeftColor: colors.success }]}
-          onPress={() => setActiveTab('messages')}
+          onPress={() => setActiveTab('berichte')}
           activeOpacity={0.7}
         >
           <View style={dynamicStyles.statContent}>
