@@ -6285,19 +6285,26 @@ const MainApp = ({ appConfig, setAppConfig }) => {
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => loadReports()} />}
         showsVerticalScrollIndicator={false}
       >
-        {/* Quick Action Card */}
-        <View style={dynamicStyles.card}>
-          <View style={dynamicStyles.cardHeader}>
-            <Ionicons name="create" size={24} color={colors.primary} />
-            <Text style={dynamicStyles.cardTitle}>Bericht erstellen</Text>
+        {/* Professional Quick Action Card */}
+        <View style={[dynamicStyles.card, dynamicStyles.professionalCard]}>
+          <View style={dynamicStyles.professionalHeader}>
+            <View style={dynamicStyles.professionalIconContainer}>
+              <Ionicons name="document" size={32} color={colors.primary} />
+            </View>
+            <View style={dynamicStyles.professionalTitleContainer}>
+              <Text style={dynamicStyles.professionalTitle}>📝 Neuen Bericht erstellen</Text>
+              <Text style={dynamicStyles.professionalSubtitle}>Tagesberichte und Schichtprotokoll</Text>
+            </View>
           </View>
           
           <TouchableOpacity 
-            style={dynamicStyles.actionButton}
+            style={[dynamicStyles.professionalActionButton, { backgroundColor: colors.primary }]}
             onPress={createNewReport}
+            activeOpacity={0.8}
           >
-            <Ionicons name="document-text" size={20} color="#FFFFFF" />
-            <Text style={dynamicStyles.actionText}>📝 Neuen Bericht schreiben</Text>
+            <Ionicons name="add-circle" size={24} color="#FFFFFF" />
+            <Text style={dynamicStyles.professionalActionText}>Bericht schreiben</Text>
+            <Ionicons name="chevron-forward" size={20} color="#FFFFFF" />
           </TouchableOpacity>
         </View>
 
