@@ -6988,118 +6988,83 @@ const MainApp = ({ appConfig, setAppConfig }) => {
         </View>
       </View>
 
-      {/* Mobile-Responsive Filter Tabs - Horizontal Scrollable */}
-      <ScrollView 
-        horizontal 
-        showsHorizontalScrollIndicator={false}
-        style={dynamicStyles.filterScrollContainer}
-        contentContainerStyle={dynamicStyles.filterScrollContent}
-      >
+      {/* Category Tabs */}
+      <View style={dynamicStyles.categoryTabs}>
         <TouchableOpacity 
           style={[
-            dynamicStyles.mobileFilterTab,
-            personFilter === 'all' && dynamicStyles.mobileFilterTabActive
+            dynamicStyles.categoryTab,
+            personFilter === 'all' && dynamicStyles.categoryTabActive
           ]}
           onPress={() => setPersonFilter('all')}
         >
           <Text style={[
-            dynamicStyles.mobileFilterTabText,
-            personFilter === 'all' && dynamicStyles.mobileFilterTabTextActive
+            dynamicStyles.categoryTabText,
+            personFilter === 'all' && dynamicStyles.categoryTabTextActive
           ]}>
-            🌟 Alle
-          </Text>
-          <Text style={[
-            dynamicStyles.mobileFilterTabCount,
-            personFilter === 'all' && dynamicStyles.mobileFilterTabCountActive
-          ]}>
-            {personStats.total_persons}
+            🌟 Alle ({personStats.total_persons})
           </Text>
         </TouchableOpacity>
         
         <TouchableOpacity 
           style={[
-            dynamicStyles.mobileFilterTab,
-            personFilter === 'vermisst' && dynamicStyles.mobileFilterTabActive
+            dynamicStyles.categoryTab,
+            personFilter === 'vermisst' && dynamicStyles.categoryTabActive
           ]}
           onPress={() => setPersonFilter('vermisst')}
         >
           <Text style={[
-            dynamicStyles.mobileFilterTabText,
-            personFilter === 'vermisst' && dynamicStyles.mobileFilterTabTextActive
+            dynamicStyles.categoryTabText,
+            personFilter === 'vermisst' && dynamicStyles.categoryTabTextActive
           ]}>
-            ⚠️ Vermisste
-          </Text>
-          <Text style={[
-            dynamicStyles.mobileFilterTabCount,
-            personFilter === 'vermisst' && dynamicStyles.mobileFilterTabCountActive
-          ]}>
-            {personStats.missing_persons}
+            ⚠️ Vermisste ({personStats.missing_persons})
           </Text>
         </TouchableOpacity>
         
         <TouchableOpacity 
           style={[
-            dynamicStyles.mobileFilterTab,
-            personFilter === 'gesucht' && dynamicStyles.mobileFilterTabActive
+            dynamicStyles.categoryTab,
+            personFilter === 'gesucht' && dynamicStyles.categoryTabActive
           ]}
           onPress={() => setPersonFilter('gesucht')}
         >
           <Text style={[
-            dynamicStyles.mobileFilterTabText,
-            personFilter === 'gesucht' && dynamicStyles.mobileFilterTabTextActive
+            dynamicStyles.categoryTabText,
+            personFilter === 'gesucht' && dynamicStyles.categoryTabTextActive
           ]}>
-            🔍 Gesuchte
-          </Text>
-          <Text style={[
-            dynamicStyles.mobileFilterTabCount,
-            personFilter === 'gesucht' && dynamicStyles.mobileFilterTabCountActive
-          ]}>
-            {personStats.wanted_persons}
+            🔍 Gesuchte ({personStats.wanted_persons})
           </Text>
         </TouchableOpacity>
         
         <TouchableOpacity 
           style={[
-            dynamicStyles.mobileFilterTab,
-            personFilter === 'gefunden' && dynamicStyles.mobileFilterTabActive
+            dynamicStyles.categoryTab,
+            personFilter === 'gefunden' && dynamicStyles.categoryTabActive
           ]}
           onPress={() => setPersonFilter('gefunden')}
         >
           <Text style={[
-            dynamicStyles.mobileFilterTabText,
-            personFilter === 'gefunden' && dynamicStyles.mobileFilterTabTextActive
+            dynamicStyles.categoryTabText,
+            personFilter === 'gefunden' && dynamicStyles.categoryTabTextActive
           ]}>
-            ✅ Gefundene
-          </Text>
-          <Text style={[
-            dynamicStyles.mobileFilterTabCount,
-            personFilter === 'gefunden' && dynamicStyles.mobileFilterTabCountActive
-          ]}>
-            {personStats.found_persons}
+            ✅ Gefundene ({personStats.found_persons})
           </Text>
         </TouchableOpacity>
         
         <TouchableOpacity 
           style={[
-            dynamicStyles.mobileFilterTab,
-            personFilter === 'erledigt' && dynamicStyles.mobileFilterTabActive
+            dynamicStyles.categoryTab,
+            personFilter === 'erledigt' && dynamicStyles.categoryTabActive
           ]}
           onPress={() => setPersonFilter('erledigt')}
         >
           <Text style={[
-            dynamicStyles.mobileFilterTabText,
-            personFilter === 'erledigt' && dynamicStyles.mobileFilterTabTextActive
+            dynamicStyles.categoryTabText,
+            personFilter === 'erledigt' && dynamicStyles.categoryTabTextActive
           ]}>
-            ✔️ Erledigt
-          </Text>
-          <Text style={[
-            dynamicStyles.mobileFilterTabCount,
-            personFilter === 'erledigt' && dynamicStyles.mobileFilterTabCountActive
-          ]}>
-            {personStats.completed_persons || 0}
+            ✔️ Erledigt ({personStats.completed_persons || 0})
           </Text>
         </TouchableOpacity>
-      </ScrollView>
+      </View>
 
       {/* Search Field */}
       <View style={dynamicStyles.searchContainer}>
