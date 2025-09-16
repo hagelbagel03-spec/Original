@@ -5750,8 +5750,9 @@ const MainApp = () => {
                     ]}
                     onPress={(e) => {
                       e.stopPropagation();
-                      if (user?.role !== 'admin') {
-                        Alert.alert('🔒 Keine Berechtigung', 'Nur Administratoren können Benutzer löschen.');
+                      console.log('🔍 Current user role:', user?.role);
+                      if (user?.role !== 'admin' && user?.role !== 'ADMIN') {
+                        Alert.alert('🔒 Keine Berechtigung', `Nur Administratoren können Benutzer löschen. Ihre Rolle: ${user?.role}`);
                         return;
                       }
                       Alert.alert(
