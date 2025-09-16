@@ -5751,6 +5751,17 @@ const MainApp = ({ appConfig, setAppConfig }) => {
               />
             </TouchableOpacity>
             
+            {/* SOS Button */}
+            <TouchableOpacity 
+              style={[dynamicStyles.headerButton, dynamicStyles.sosHeaderButton]} 
+              onPress={() => setShowSOSModal(true)}
+              accessible={true}
+              accessibilityLabel="SOS Notruf"
+            >
+              <Ionicons name="warning" size={20} color="#FFFFFF" />
+              <Text style={dynamicStyles.sosButtonText}>SOS</Text>
+            </TouchableOpacity>
+            
             <TouchableOpacity style={dynamicStyles.headerButton} onPress={logout}>
               <Ionicons name="log-out-outline" size={20} color="#FFFFFF" />
             </TouchableOpacity>
