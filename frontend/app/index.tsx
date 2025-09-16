@@ -6098,28 +6098,40 @@ const MainApp = ({ appConfig, setAppConfig }) => {
       </View>
 
       <ScrollView style={dynamicStyles.content} showsVerticalScrollIndicator={false}>
-        {/* Current App Configuration */}
-        <View style={dynamicStyles.card}>
-          <Text style={dynamicStyles.cardTitle}>📱 Aktuelle App-Konfiguration</Text>
-          <View style={dynamicStyles.configItem}>
-            <Text style={dynamicStyles.configLabel}>App-Name:</Text>
-            <Text style={dynamicStyles.configValue}>{appConfig.app_name}</Text>
-          </View>
-          <View style={dynamicStyles.configItem}>
-            <Text style={dynamicStyles.configLabel}>Untertitel:</Text>
-            <Text style={dynamicStyles.configValue}>{appConfig.app_subtitle}</Text>
-          </View>
-          <View style={dynamicStyles.configItem}>
-            <Text style={dynamicStyles.configLabel}>Organisation:</Text>
-            <Text style={dynamicStyles.configValue}>{appConfig.organization_name}</Text>
-          </View>
+        {/* Modern Admin Cards */}
+        <View style={dynamicStyles.statsContainer}>
+          <TouchableOpacity 
+            style={[dynamicStyles.statCard, { borderLeftColor: colors.primary }]}
+            onPress={() => setShowAdminSettingsModal(true)}
+            activeOpacity={0.7}
+          >
+            <View style={dynamicStyles.statContent}>
+              <View style={dynamicStyles.statHeader}>
+                <View style={[dynamicStyles.statIconContainer, { backgroundColor: colors.primary + '15' }]}>
+                  <Ionicons name="settings" size={24} color={colors.primary} />
+                </View>
+              </View>
+              <Text style={dynamicStyles.statNumber}>⚙️</Text>
+              <Text style={dynamicStyles.statLabel}>App-Konfiguration</Text>
+              <Text style={dynamicStyles.statSubtext}>Name, Icon, Branding</Text>
+            </View>
+          </TouchableOpacity>
           
           <TouchableOpacity 
-            style={[dynamicStyles.adminActionButton, { backgroundColor: colors.primary }]}
-            onPress={() => setShowAdminSettingsModal(true)}
+            style={[dynamicStyles.statCard, { borderLeftColor: colors.success }]}
+            onPress={() => setShowAddUserModal(true)}
+            activeOpacity={0.7}
           >
-            <Ionicons name="settings" size={20} color="#FFFFFF" />
-            <Text style={dynamicStyles.adminActionButtonText}>App konfigurieren</Text>
+            <View style={dynamicStyles.statContent}>
+              <View style={dynamicStyles.statHeader}>
+                <View style={[dynamicStyles.statIconContainer, { backgroundColor: colors.success + '15' }]}>
+                  <Ionicons name="person-add" size={24} color={colors.success} />
+                </View>
+              </View>
+              <Text style={dynamicStyles.statNumber}>👤</Text>
+              <Text style={dynamicStyles.statLabel}>Benutzer hinzufügen</Text>
+              <Text style={dynamicStyles.statSubtext}>Neue Team-Mitglieder</Text>
+            </View>
           </TouchableOpacity>
         </View>
 
