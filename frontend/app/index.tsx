@@ -7740,7 +7740,10 @@ const MainApp = ({ appConfig, setAppConfig }) => {
         {user?.team && (
           <TouchableOpacity 
             style={[dynamicStyles.tabItem, activeTab === 'myteam' && dynamicStyles.tabItemActive]}
-            onPress={() => setActiveTab('myteam')}
+            onPress={() => {
+              console.log('Team button clicked, user.team:', user.team);
+              setActiveTab('myteam');
+            }}
           >
             <Ionicons 
               name={activeTab === 'myteam' ? 'people' : 'people-outline'} 
@@ -7751,6 +7754,15 @@ const MainApp = ({ appConfig, setAppConfig }) => {
               {user.team}
             </Text>
           </TouchableOpacity>
+        )}
+        
+        {/* DEBUG: Show user.team info */}
+        {user && (
+          <View style={{ position: 'absolute', top: -50, left: 10, backgroundColor: 'red', padding: 5 }}>
+            <Text style={{ color: 'white', fontSize: 10 }}>
+              DEBUG: team={user.team || 'null'}
+            </Text>
+          </View>
         )}
         
         <TouchableOpacity 
