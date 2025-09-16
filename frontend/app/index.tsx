@@ -7069,6 +7069,23 @@ const MainApp = ({ appConfig, setAppConfig }) => {
             Team
           </Text>
         </TouchableOpacity>
+
+        {/* Admin Tab - Only visible for admins */}
+        {user?.role === 'admin' && (
+          <TouchableOpacity 
+            style={[dynamicStyles.tabItem, activeTab === 'admin' && dynamicStyles.tabItemActive]}
+            onPress={() => setActiveTab('admin')}
+          >
+            <Ionicons 
+              name={activeTab === 'admin' ? 'settings' : 'settings-outline'} 
+              size={24} 
+              color={activeTab === 'admin' ? '#FFFFFF' : colors.textMuted} 
+            />
+            <Text style={[dynamicStyles.tabLabel, activeTab === 'admin' && dynamicStyles.tabLabelActive]}>
+              Admin
+            </Text>
+          </TouchableOpacity>
+        )}
       </View>
 
       {/* Profile Modal mit Dark/Light Mode */}
