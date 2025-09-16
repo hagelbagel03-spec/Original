@@ -1709,6 +1709,68 @@ const MainApp = () => {
     }
   };
 
+  // Person Status Update Function
+  const updatePersonStatus = async (personId, newStatus, personName) => {
+    try {
+      const config = token ? {
+        headers: { Authorization: `Bearer ${token}` }
+      } : {};
+      
+      console.log(`👤 Update Person Status: ${personId} -> ${newStatus}`);
+      
+      const updateData = {
+        status: newStatus
+      };
+      
+      console.log('👤 Sending update data:', updateData);
+      
+      await axios.put(`${API_URL}/api/persons/${personId}`, updateData, config);
+      
+      const statusText = {
+        'gefunden': 'GEFUNDEN',
+        'erledigt': 'ERLEDIGT', 
+        'vermisst': 'VERMISST',
+        'gesucht': 'GESUCHT'
+      }[newStatus] || newStatus.toUpperCase();
+      
+      window.alert(`✅ Erfolg\n\nPerson "${personName}" wurde auf "${statusText}" gesetzt!`);
+      
+      // Reload persons data
+      await loadPersons();
+      await loadPersonStats();
+      
+      // Update selected person if it's currently shown
+      if (selectedPerson && selectedPerson.id === personId) {
+        setSelectedPerson(prev => ({
+          ...prev,
+          status: newStatus
+        }));
+      }
+      
+      // Close modal if status is erledigt
+      if (newStatus === 'erledigt') {
+        setShowPersonDetailModal(false);
+      }
+      
+    } catch (error) {
+      console.error('❌ Person status update error:', error);
+      console.error('❌ Response data:', error.response?.data);
+      
+      let errorMsg = 'Status konnte nicht aktualisiert werden.';
+      if (error.response?.status === 422) {
+        errorMsg = 'Ungültige Daten. ' + (error.response?.data?.detail || 'Bitte versuchen Sie es erneut.');
+      } else if (error.response?.status === 404) {
+        errorMsg = 'Person nicht gefunden.';
+      } else if (error.response?.data?.detail) {
+        errorMsg = error.response.data.detail;
+      } else if (error.response?.data?.message) {
+        errorMsg = error.response.data.message;
+      }
+      
+      window.alert(`❌ Fehler\n\n${errorMsg}`);
+    }
+  };
+
   // Report Status Update Functions - FIXED for 422 error
   const updateReportStatus = async (reportId, newStatus, reportTitle) => {
     try {
