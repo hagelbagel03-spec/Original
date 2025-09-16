@@ -7726,10 +7726,89 @@ Beispielinhalt:
                 />
               </View>
 
+              {/* Optional Photo Upload Section - Same as Incident */}
+              <View style={dynamicStyles.formGroup}>
+                <Text style={dynamicStyles.formLabel}>📸 Foto (optional)</Text>
+                <Text style={dynamicStyles.formHint}>Fügen Sie Bilder zur Dokumentation hinzu</Text>
+                <View style={dynamicStyles.photoUploadContainer}>
+                  {reportFormData.images && reportFormData.images.length > 0 ? (
+                    <TouchableOpacity 
+                      style={dynamicStyles.photoPreview}
+                      onPress={() => {
+                        Alert.alert(
+                          '📸 Foto ändern',
+                          'Möchten Sie das Foto ändern oder entfernen?',
+                          [
+                            { text: 'Abbrechen', style: 'cancel' },
+                            { 
+                              text: 'Entfernen', 
+                              style: 'destructive',
+                              onPress: () => setReportFormData(prev => ({ ...prev, images: [] }))
+                            },
+                            { text: 'Neues Foto', onPress: async () => {
+                              const photo = await pickImageForIncident();
+                              if (photo) setReportFormData(prev => ({ ...prev, images: [photo] }));
+                            }}
+                          ]
+                        );
+                      }}
+                    >
+                      <Image 
+                        source={{ uri: reportFormData.images[0] }} 
+                        style={dynamicStyles.incidentPhotoPreview}
+                      />
+                      <View style={dynamicStyles.photoOverlay}>
+                        <Ionicons name="camera" size={20} color="#FFFFFF" />
+                      </View>
+                    </TouchableOpacity>
+                  ) : (
+                    <View style={dynamicStyles.photoUploadButtons}>
+                      <TouchableOpacity 
+                        style={[dynamicStyles.photoButton, { backgroundColor: colors.primary }]}
+                        onPress={async () => {
+                          const photo = await pickImageForIncident();
+                          if (photo) setReportFormData(prev => ({ ...prev, images: [photo] }));
+                        }}
+                      >
+                        <Ionicons name="images" size={20} color="#FFFFFF" />
+                        <Text style={dynamicStyles.photoButtonText}>Galerie</Text>
+                      </TouchableOpacity>
+                      
+                      <TouchableOpacity 
+                        style={[dynamicStyles.photoButton, { backgroundColor: colors.secondary }]}
+                        onPress={async () => {
+                          const photo = await takePhotoForIncident();
+                          if (photo) setReportFormData(prev => ({ ...prev, images: [photo] }));
+                        }}
+                      >
+                        <Ionicons name="camera" size={20} color="#FFFFFF" />
+                        <Text style={dynamicStyles.photoButtonText}>Kamera</Text>
+                      </TouchableOpacity>
+                    </View>
+                  )}
+                </View>
+              </View>
+
+              {/* Submit Button - Same as Incident */}
+              <TouchableOpacity 
+                style={[dynamicStyles.submitButton, (savingReport || !reportFormData.title.trim() || !reportFormData.content.trim()) && dynamicStyles.submitButtonDisabled]}
+                onPress={saveReport}
+                disabled={savingReport || !reportFormData.title.trim() || !reportFormData.content.trim()}
+              >
+                {savingReport ? (
+                  <ActivityIndicator color="#FFFFFF" size="small" />
+                ) : (
+                  <Ionicons name="checkmark-circle" size={24} color="#FFFFFF" />
+                )}
+                <Text style={dynamicStyles.submitButtonText}>
+                  {savingReport ? 'Speichert...' : (editingReport ? 'Bericht aktualisieren' : 'Bericht erstellen')}
+                </Text>
+              </TouchableOpacity>
+
               <View style={{ height: 40 }} />
-            </ScrollView>
-          </KeyboardAvoidingView>
-        </SafeAreaView>
+            </View>
+          </ScrollView>
+        </View>
       </Modal>
 
       {/* Add User Modal */}
