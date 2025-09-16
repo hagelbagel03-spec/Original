@@ -6834,6 +6834,24 @@ Beispielinhalt:
                     </TouchableOpacity>
                   )}
 
+                  {/* In Bearbeitung Button - Incident auf in_progress setzen */}
+                  {selectedIncident.status !== 'in_progress' && (
+                    <TouchableOpacity
+                      style={[dynamicStyles.actionButton, { backgroundColor: colors.warning, marginBottom: 12 }]}
+                      onPress={() => {
+                        if (window.confirm(`⚙️ Status ändern\n\n"${selectedIncident.title}" auf "IN BEARBEITUNG" setzen?`)) {
+                          updateIncidentStatus(selectedIncident.id, 'in_progress', selectedIncident.title);
+                        }
+                      }}
+                    >
+                      <Ionicons name="cog" size={20} color="#FFFFFF" />
+                      <Text style={[dynamicStyles.actionButtonText, { color: '#FFFFFF' }]}>
+                        ⚙️ IN BEARBEITUNG
+                      </Text>
+                    </TouchableOpacity>
+                  )}
+
+                  {/* Abschließen Button */}
                   <TouchableOpacity
                     style={[dynamicStyles.actionButton, { backgroundColor: colors.success, marginBottom: 12 }]}
                     onPress={() => {
@@ -6845,7 +6863,7 @@ Beispielinhalt:
                   >
                     <Ionicons name="checkmark" size={20} color="#FFFFFF" />
                     <Text style={[dynamicStyles.actionButtonText, { color: '#FFFFFF' }]}>
-                      ✅ Vorfall abschließen
+                      ✅ ABGESCHLOSSEN
                     </Text>
                   </TouchableOpacity>
 
