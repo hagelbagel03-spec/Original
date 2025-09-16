@@ -1256,31 +1256,79 @@ async def create_first_user(user_data: UserCreate):
 # Database reset endpoint (DANGER!)
 @api_router.delete("/admin/reset-database")
 async def reset_database():
-    """⚠️ DANGER: Completely reset the database - removes ALL data!"""
+    """Reset the database - DANGER ZONE"""
     try:
-        # List all collections
-        collections = await db.list_collection_names()
+        # Clear all collections
+        collections_cleared = 0
+        total_documents_deleted = 0
+        collection_names = []
         
-        deleted_count = 0
-        for collection_name in collections:
-            result = await db[collection_name].delete_many({})
-            deleted_count += result.deleted_count
-            print(f"🗑️ Deleted {result.deleted_count} documents from {collection_name}")
-        
-        # Clear online users tracking
-        global online_users, user_sockets
-        online_users.clear()
-        user_sockets.clear()
+        for collection_name in await db.list_collection_names():
+            collection = db[collection_name]
+            result = await collection.delete_many({})
+            collections_cleared += 1
+            total_documents_deleted += result.deleted_count
+            collection_names.append(collection_name)
         
         return {
             "message": "Database completely reset!",
-            "collections_cleared": len(collections),
-            "total_documents_deleted": deleted_count,
-            "collections": collections
+            "collections_cleared": collections_cleared,
+            "total_documents_deleted": total_documents_deleted,
+            "collections": collection_names
         }
-        
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Database reset failed: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Reset failed: {str(e)}")
+
+# App Configuration Endpoints
+@api_router.get("/app/config", response_model=AppConfiguration)
+async def get_app_configuration():
+    """Get current app configuration"""
+    config = await db.app_config.find_one()
+    if not config:
+        # Create default configuration
+        default_config = AppConfiguration()
+        await db.app_config.insert_one(default_config.dict())
+        return default_config
+    
+    # Convert MongoDB _id to our id field
+    if "_id" in config:
+        del config["_id"]
+    
+    return AppConfiguration(**config)
+
+@api_router.put("/admin/app/config", response_model=AppConfiguration)
+async def update_app_configuration(
+    config_update: AppConfigurationUpdate,
+    current_user: User = Depends(get_current_user)
+):
+    """Update app configuration (Admin only)"""
+    # Only admins can update app configuration
+    if current_user.role != UserRole.ADMIN:
+        raise HTTPException(status_code=403, detail="Only admins can update app configuration")
+    
+    # Get current config
+    current_config = await db.app_config.find_one()
+    if not current_config:
+        # Create default if none exists
+        current_config = AppConfiguration().dict()
+        await db.app_config.insert_one(current_config)
+    
+    # Update only provided fields
+    update_data = {k: v for k, v in config_update.dict().items() if v is not None}
+    update_data["updated_at"] = datetime.utcnow()
+    
+    # Update in database
+    await db.app_config.update_one(
+        {"id": current_config["id"]},
+        {"$set": update_data}
+    )
+    
+    # Get updated config
+    updated_config = await db.app_config.find_one({"id": current_config["id"]})
+    if "_id" in updated_config:
+        del updated_config["_id"]
+    
+    return AppConfiguration(**updated_config)
 
 # Root route
 @api_router.get("/")
