@@ -67,14 +67,30 @@ const GoogleMapsView = ({ incident }: { incident: any }) => {
     <View style={styles.container}>
       {/* Interactive Google Maps für Web */}
       {Platform.OS === 'web' ? (
-        <iframe
-          src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyDummy_Key_For_Development&q=${coordinates.lat},${coordinates.lng}&zoom=16`}
-          width="100%"
-          height="100%"
-          style={{ border: 0, borderRadius: 12 }}
-          allowFullScreen
-          loading="lazy"
-        />
+        <View style={styles.webMapContainer}>
+          <View style={styles.mapInfoCard}>
+            <View style={[styles.priorityBadge, {
+              backgroundColor: getPriorityColor(incident.priority)
+            }]}>
+              <Text style={styles.priorityText}>
+                {incident.priority?.toUpperCase() || 'NORMAL'} PRIORITÄT
+              </Text>
+            </View>
+            <Text style={styles.incidentTitle}>📍 {incident.title}</Text>
+            <Text style={styles.incidentAddress}>{incident.address}</Text>
+            <Text style={styles.coordinates}>
+              📍 {coordinates.lat.toFixed(6)}, {coordinates.lng.toFixed(6)}
+            </Text>
+            
+            <TouchableOpacity 
+              style={styles.openMapsButton}
+              onPress={openInGoogleMaps}
+            >
+              <Ionicons name="map" size={20} color="#FFFFFF" />
+              <Text style={styles.openMapsText}>🗺️ In Google Maps öffnen</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       ) : (
         <View style={styles.nativeMapPlaceholder}>
           <Ionicons name="map" size={48} color={colors.primary} />
