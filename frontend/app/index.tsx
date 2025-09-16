@@ -6666,6 +6666,31 @@ Beispielinhalt:
                 <View style={dynamicStyles.detailCard}>
                   <Text style={dynamicStyles.detailSectionTitle}>📋 Grunddaten</Text>
                   
+                  {/* Person Photo */}
+                  <View style={dynamicStyles.detailRow}>
+                    <Text style={dynamicStyles.detailLabel}>📸 Foto:</Text>
+                    <View style={dynamicStyles.photoContainer}>
+                      {selectedPerson.photo ? (
+                        <TouchableOpacity onPress={() => {
+                          // Vollbild anzeigen 
+                          Alert.alert('📸 Foto', 'Foto in voller Größe anzeigen', [
+                            { text: 'OK' }
+                          ]);
+                        }}>
+                          <Image 
+                            source={{ uri: selectedPerson.photo }} 
+                            style={dynamicStyles.personPhoto}
+                          />
+                        </TouchableOpacity>
+                      ) : (
+                        <View style={dynamicStyles.noPhotoContainer}>
+                          <Ionicons name="person" size={40} color={colors.textMuted} />
+                          <Text style={dynamicStyles.noPhotoText}>Kein Foto</Text>
+                        </View>
+                      )}
+                    </View>
+                  </View>
+                  
                   <View style={dynamicStyles.detailRow}>
                     <Text style={dynamicStyles.detailLabel}>👤 Name:</Text>
                     <Text style={dynamicStyles.detailValue}>
