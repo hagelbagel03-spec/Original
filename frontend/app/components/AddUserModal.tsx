@@ -146,9 +146,11 @@ const AddUserModal: React.FC<AddUserModalProps> = ({ visible, onClose, onUserAdd
       confirmPassword: '',
       role: 'officer',
       department: '',
+      team: '',
       badge_number: '',
       rank: '',
-      phone: ''
+      phone: '',
+      photo: ''
     });
   };
 
