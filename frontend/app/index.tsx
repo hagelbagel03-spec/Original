@@ -1140,7 +1140,8 @@ const MainApp = ({ appConfig, setAppConfig }) => {
         service_number: profileData.service_number,
         rank: profileData.rank,
         department: profileData.department,
-        status: userStatus 
+        status: userStatus,
+        photo: profileData.photo // Include photo in updates!
       };
       
       // Wenn Admin einen anderen Benutzer bearbeitet
