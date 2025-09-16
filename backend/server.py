@@ -952,7 +952,18 @@ async def broadcast_emergency_alert(
         # Log detailed info
         location_info = ""
         if location_data:
-            location_info = f" at GPS: {location_data['latitude']:.6f}, {location_data['longitude']:.6f} (±{location_data.get('accuracy', 0):.0f}m)"
+            try:
+                # Safely format GPS coordinates with validation
+                lat = location_data.get('latitude')
+                lng = location_data.get('longitude')
+                accuracy = location_data.get('accuracy', 0)
+                
+                if lat is not None and lng is not None and isinstance(lat, (int, float)) and isinstance(lng, (int, float)):
+                    location_info = f" at GPS: {float(lat):.6f}, {float(lng):.6f} (±{float(accuracy):.0f}m)"
+                else:
+                    location_info = f" - GPS: Invalid coordinates provided"
+            except (ValueError, TypeError) as e:
+                location_info = f" - GPS: Error formatting coordinates ({str(e)})"
         else:
             location_info = f" - GPS: {location_status}"
             
