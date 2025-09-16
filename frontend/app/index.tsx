@@ -1429,6 +1429,8 @@ const MainApp = () => {
       
       const updateData = {
         assigned_to: user?.id,
+        assigned_to_name: user?.username,
+        assigned_at: new Date().toISOString(),
         status: 'in_progress'
       };
       
