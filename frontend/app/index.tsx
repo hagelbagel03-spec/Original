@@ -783,7 +783,7 @@ const MainApp = () => {
     contact_info: '',
     case_number: '',
     priority: 'medium',
-    photo: ''
+    photo: '' // base64 encoded photo
   });
   const [personStats, setPersonStats] = useState({
     total_persons: 0,
