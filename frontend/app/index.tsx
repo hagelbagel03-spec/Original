@@ -6860,10 +6860,26 @@ Beispielinhalt:
 
                   {selectedIncident.assigned_to_name && (
                     <View style={dynamicStyles.detailRow}>
-                      <Text style={dynamicStyles.detailLabel}>👤 Bearbeiter:</Text>
+                      <Text style={dynamicStyles.detailLabel}>👤 Angenommen von:</Text>
                       <Text style={dynamicStyles.detailValue}>{selectedIncident.assigned_to_name}</Text>
                     </View>
                   )}
+
+                  {selectedIncident.assigned_at && (
+                    <View style={dynamicStyles.detailRow}>
+                      <Text style={dynamicStyles.detailLabel}>🕒 Angenommen am:</Text>
+                      <Text style={dynamicStyles.detailValue}>
+                        {new Date(selectedIncident.assigned_at).toLocaleDateString('de-DE')} um {new Date(selectedIncident.assigned_at).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' })}
+                      </Text>
+                    </View>
+                  )}
+
+                  <View style={dynamicStyles.detailRow}>
+                    <Text style={dynamicStyles.detailLabel}>📅 Erstellt am:</Text>
+                    <Text style={dynamicStyles.detailValue}>
+                      {new Date(selectedIncident.created_at).toLocaleDateString('de-DE')} um {new Date(selectedIncident.created_at).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' })}
+                    </Text>
+                  </View>
                 </View>
 
                 <View style={dynamicStyles.detailCard}>
