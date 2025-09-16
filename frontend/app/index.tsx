@@ -7419,6 +7419,45 @@ Beispielinhalt:
                   </View>
                 </View>
 
+                {/* Person Actions */}
+                <View style={dynamicStyles.detailCard}>
+                  <Text style={dynamicStyles.detailSectionTitle}>🎯 Person-Aktionen</Text>
+                  
+                  {/* Erledigt Button - nur anzeigen wenn nicht bereits erledigt */}
+                  {selectedPerson.status !== 'erledigt' && (
+                    <TouchableOpacity
+                      style={[dynamicStyles.actionButton, { backgroundColor: colors.success, marginBottom: 12 }]}
+                      onPress={() => {
+                        if (window.confirm(`✅ Person erledigt\n\n"${selectedPerson.first_name} ${selectedPerson.last_name}" als erledigt markieren?`)) {
+                          updatePersonStatus(selectedPerson.id, 'erledigt', `${selectedPerson.first_name} ${selectedPerson.last_name}`);
+                        }
+                      }}
+                    >
+                      <Ionicons name="checkmark-circle" size={20} color="#FFFFFF" />
+                      <Text style={[dynamicStyles.actionButtonText, { color: '#FFFFFF' }]}>
+                        ✅ Als erledigt markieren
+                      </Text>
+                    </TouchableOpacity>
+                  )}
+                  
+                  {/* Status Ändern Buttons */}
+                  {selectedPerson.status !== 'gefunden' && (
+                    <TouchableOpacity
+                      style={[dynamicStyles.actionButton, { backgroundColor: colors.primary, marginBottom: 12 }]}
+                      onPress={() => {
+                        if (window.confirm(`✅ Person gefunden\n\n"${selectedPerson.first_name} ${selectedPerson.last_name}" als gefunden markieren?`)) {
+                          updatePersonStatus(selectedPerson.id, 'gefunden', `${selectedPerson.first_name} ${selectedPerson.last_name}`);
+                        }
+                      }}
+                    >
+                      <Ionicons name="location" size={20} color="#FFFFFF" />
+                      <Text style={[dynamicStyles.actionButtonText, { color: '#FFFFFF' }]}>
+                        ✅ Als gefunden markieren
+                      </Text>
+                    </TouchableOpacity>
+                  )}
+                </View>
+
                 <View style={{ height: 40 }} />
               </>
             )}
