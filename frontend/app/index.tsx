@@ -3543,28 +3543,33 @@ const MainApp = ({ appConfig, setAppConfig }) => {
 
     // Category Filter Tabs
     categoryTabs: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      gap: 8,
       marginBottom: 16,
-    },
-    categoryTabsContent: {
       paddingHorizontal: 4,
     },
     categoryTab: {
-      paddingHorizontal: 16,
-      paddingVertical: 10,
-      marginHorizontal: 4,
-      borderRadius: 20,
+      flex: 1,
+      minWidth: 70,
+      paddingVertical: 8,
+      paddingHorizontal: 6,
+      borderRadius: 12,
       backgroundColor: colors.surface,
       borderWidth: 1,
       borderColor: colors.border,
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     categoryTabActive: {
       backgroundColor: colors.primary,
       borderColor: colors.primary,
     },
     categoryTabText: {
-      fontSize: 14,
+      fontSize: 11,
       fontWeight: '600',
       color: colors.textSecondary,
+      textAlign: 'center',
     },
     categoryTabTextActive: {
       color: '#FFFFFF',
