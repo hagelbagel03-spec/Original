@@ -981,7 +981,8 @@ const MainApp = ({ appConfig, setAppConfig }) => {
     setReportFormData({
       title: report.title,
       content: report.content,
-      shift_date: report.shift_date
+      shift_date: report.shift_date,
+      images: report.images || []
     });
     setShowReportModal(true);
   };
