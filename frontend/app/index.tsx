@@ -5960,6 +5960,102 @@ const MainApp = ({ appConfig, setAppConfig }) => {
     );
   };
 
+  const renderAdminScreen = () => (
+    <View style={dynamicStyles.content}>
+      {/* Admin Header */}
+      <View style={dynamicStyles.header}>
+        <View style={dynamicStyles.headerLeft}>
+          <Text style={dynamicStyles.welcomeText}>⚙️ Admin-Bereich</Text>
+          <Text style={dynamicStyles.usernameText}>System-Konfiguration</Text>
+        </View>
+        <View style={dynamicStyles.headerButtons}>
+          <TouchableOpacity 
+            style={dynamicStyles.headerButton}
+            onPress={() => setShowAdminSettingsModal(true)}
+          >
+            <Ionicons name="settings" size={20} color="#FFFFFF" />
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      <ScrollView style={dynamicStyles.content} showsVerticalScrollIndicator={false}>
+        {/* Current App Configuration */}
+        <View style={dynamicStyles.card}>
+          <Text style={dynamicStyles.cardTitle}>📱 Aktuelle App-Konfiguration</Text>
+          <View style={dynamicStyles.configItem}>
+            <Text style={dynamicStyles.configLabel}>App-Name:</Text>
+            <Text style={dynamicStyles.configValue}>{appConfig.app_name}</Text>
+          </View>
+          <View style={dynamicStyles.configItem}>
+            <Text style={dynamicStyles.configLabel}>Untertitel:</Text>
+            <Text style={dynamicStyles.configValue}>{appConfig.app_subtitle}</Text>
+          </View>
+          <View style={dynamicStyles.configItem}>
+            <Text style={dynamicStyles.configLabel}>Organisation:</Text>
+            <Text style={dynamicStyles.configValue}>{appConfig.organization_name}</Text>
+          </View>
+          
+          <TouchableOpacity 
+            style={[dynamicStyles.adminActionButton, { backgroundColor: colors.primary }]}
+            onPress={() => setShowAdminSettingsModal(true)}
+          >
+            <Ionicons name="settings" size={20} color="#FFFFFF" />
+            <Text style={dynamicStyles.adminActionButtonText}>App konfigurieren</Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* Admin Actions */}
+        <View style={dynamicStyles.card}>
+          <Text style={dynamicStyles.cardTitle}>🛠️ Admin-Aktionen</Text>
+          
+          <TouchableOpacity 
+            style={[dynamicStyles.adminActionButton, { backgroundColor: colors.success }]}
+            onPress={() => setShowAddUserModal(true)}
+          >
+            <Ionicons name="person-add" size={20} color="#FFFFFF" />
+            <Text style={dynamicStyles.adminActionButtonText}>Benutzer hinzufügen</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity 
+            style={[dynamicStyles.adminActionButton, { backgroundColor: colors.warning }]}
+            onPress={() => {
+              Alert.alert(
+                '🔄 System-Neustart',
+                'System neu starten? Dies kann einige Sekunden dauern.',
+                [
+                  { text: 'Abbrechen', style: 'cancel' },
+                  { text: 'Neustart', onPress: () => window.location.reload() }
+                ]
+              );
+            }}
+          >
+            <Ionicons name="refresh" size={20} color="#FFFFFF" />
+            <Text style={dynamicStyles.adminActionButtonText}>System neu starten</Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* System Information */}
+        <View style={dynamicStyles.card}>
+          <Text style={dynamicStyles.cardTitle}>ℹ️ System-Information</Text>
+          <View style={dynamicStyles.configItem}>
+            <Text style={dynamicStyles.configLabel}>Aktueller Benutzer:</Text>
+            <Text style={dynamicStyles.configValue}>{user?.username} ({user?.role})</Text>
+          </View>
+          <View style={dynamicStyles.configItem}>
+            <Text style={dynamicStyles.configLabel}>Version:</Text>
+            <Text style={dynamicStyles.configValue}>v1.0.0</Text>
+          </View>
+          <View style={dynamicStyles.configItem}>
+            <Text style={dynamicStyles.configLabel}>Backend:</Text>
+            <Text style={dynamicStyles.configValue}>Online ✅</Text>
+          </View>
+        </View>
+
+        <View style={{ height: 100 }} />
+      </ScrollView>
+    </View>
+  );
+
   const renderTeamScreen = () => (
     <View style={dynamicStyles.content}>
       <View style={dynamicStyles.screenHeader}>
