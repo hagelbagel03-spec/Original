@@ -676,6 +676,7 @@ const MainApp = () => {
   const [showMapModal, setShowMapModal] = useState(false);
   const [selectedIncident, setSelectedIncident] = useState(null);
   const [showAddUserModal, setShowAddUserModal] = useState(false);
+  const [showAdminSettingsModal, setShowAdminSettingsModal] = useState(false);
   
   // Profile states
   const [userStatus, setUserStatus] = useState(user?.status || 'Im Dienst');
