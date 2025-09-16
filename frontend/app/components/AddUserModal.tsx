@@ -200,6 +200,7 @@ const AddUserModal: React.FC<AddUserModalProps> = ({ visible, onClose, onUserAdd
         password: formData.password,
         role: formData.role,
         department: formData.department || null,
+        team: formData.team || null,
         badge_number: formData.badge_number || null,
         rank: formData.rank || null,
         phone: formData.phone || null
