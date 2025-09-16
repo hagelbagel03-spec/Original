@@ -1782,7 +1782,10 @@ const MainApp = () => {
         title: '',
         description: '',
         location: '',
-        priority: 'medium'
+        coordinates: null,
+        priority: 'medium',
+        incident_type: 'general',
+        photo: ''
       });
       
       // Refresh incidents list
