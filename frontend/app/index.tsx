@@ -5467,7 +5467,22 @@ const MainApp = () => {
                 disabled={!user}
               >
                 <View style={dynamicStyles.officerInfo}>
-                  <Text style={dynamicStyles.officerName}>👤 {officer.username}</Text>
+                  <View style={dynamicStyles.officerHeader}>
+                    {/* Profile Photo */}
+                    <View style={dynamicStyles.profilePhotoContainer}>
+                      {officer.photo ? (
+                        <Image 
+                          source={{ uri: officer.photo }} 
+                          style={dynamicStyles.profilePhoto}
+                        />
+                      ) : (
+                        <View style={dynamicStyles.profilePhotoPlaceholder}>
+                          <Ionicons name="person" size={20} color={colors.textMuted} />
+                        </View>
+                      )}
+                    </View>
+                    <Text style={dynamicStyles.officerName}>{officer.username}</Text>
+                  </View>
                   <Text style={dynamicStyles.officerDetails}>
                     🏢 {officer.department || 'Allgemein'} • 🎖️ {officer.rank || 'Beamter'}
                   </Text>
