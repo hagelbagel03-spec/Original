@@ -1006,7 +1006,7 @@ async def create_notification(
         notification_type = request.get("notification_type", "info")
         
         notification_dict = {
-            "id": str(ObjectId()),
+            "id": str(uuid.uuid4()),
             "recipient_id": recipient_id,
             "sender_id": current_user.id,
             "sender_name": current_user.username,
