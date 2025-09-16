@@ -3222,6 +3222,36 @@ const MainApp = ({ appConfig, setAppConfig }) => {
       fontSize: 14,
       textAlign: 'center',
     },
+    teamGroup: {
+      marginBottom: 20,
+      backgroundColor: colors.card,
+      borderRadius: 12,
+      overflow: 'hidden',
+    },
+    teamGroupHeader: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      padding: 16,
+      backgroundColor: colors.primary,
+      gap: 8,
+    },
+    teamGroupTitle: {
+      flex: 1,
+      fontSize: 18,
+      fontWeight: 'bold',
+      color: '#FFFFFF',
+    },
+    teamMemberCount: {
+      backgroundColor: 'rgba(255, 255, 255, 0.2)',
+      paddingHorizontal: 8,
+      paddingVertical: 4,
+      borderRadius: 12,
+    },
+    teamMemberCountText: {
+      color: '#FFFFFF',
+      fontSize: 12,
+      fontWeight: 'bold',
+    },
 
     // Modern Stats
     statsContainer: {
