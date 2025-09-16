@@ -7795,6 +7795,7 @@ Beispielinhalt:
               </TouchableOpacity>
 
               <View style={{ height: 40 }} />
+            </KeyboardAvoidingView>
             </View>
           </ScrollView>
         </View>
