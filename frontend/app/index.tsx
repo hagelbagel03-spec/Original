@@ -690,7 +690,8 @@ const MainApp = () => {
     location: '',
     coordinates: null,
     priority: 'medium',
-    incident_type: 'general'
+    incident_type: 'general',
+    photo: '' // base64 encoded photo (optional)
   });
   const [submittingIncident, setSubmittingIncident] = useState(false);
 
