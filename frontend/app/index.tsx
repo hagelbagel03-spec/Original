@@ -7024,7 +7024,7 @@ const MainApp = () => {
                   style={dynamicStyles.quickLinkButton}
                   onPress={() => {
                     setShowProfileModal(false);
-                    setActiveTab('reports');
+                    setActiveTab('berichte');
                   }}
                 >
                   <Ionicons name="document-text" size={20} color={colors.primary} />
