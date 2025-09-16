@@ -7662,32 +7662,27 @@ const MainApp = ({ appConfig, setAppConfig }) => {
         incident={selectedIncident}
       />
 
-      {/* Report Writing/Editing Modal */}
+      {/* Professional Report Writing/Editing Modal - Same Style as Incident */}
       <Modal
         visible={showReportModal}
         animationType="slide"
         presentationStyle="pageSheet"
         onRequestClose={() => setShowReportModal(false)}
       >
-        <SafeAreaView style={dynamicStyles.container}>
-          <View style={dynamicStyles.modalHeader}>
-            <TouchableOpacity onPress={() => setShowReportModal(false)}>
-              <Ionicons name="close" size={24} color={colors.text} />
-            </TouchableOpacity>
-            <Text style={dynamicStyles.modalTitle}>
-              {editingReport ? '✏️ Bericht bearbeiten' : '📝 Neuer Bericht'}
+        <View style={dynamicStyles.content}>
+          <View style={dynamicStyles.header}>
+            <Text style={dynamicStyles.title}>📝 Bericht erstellen</Text>
+            <Text style={dynamicStyles.subtitle}>
+              {editingReport ? 'Bericht bearbeiten und aktualisieren' : 'Neuen Tagesbericht erfassen'}
             </Text>
-            <TouchableOpacity 
-              onPress={saveReport}
-              disabled={savingReport}
-            >
-              {savingReport ? (
-                <ActivityIndicator color={colors.primary} size="small" />
-              ) : (
-                <Text style={dynamicStyles.saveButtonText}>Speichern</Text>
-              )}
-            </TouchableOpacity>
           </View>
+
+          <ScrollView 
+            style={dynamicStyles.content}
+            keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}
+          >
+            <View style={dynamicStyles.formContainer}>
 
           <KeyboardAvoidingView 
             style={{ flex: 1 }}
